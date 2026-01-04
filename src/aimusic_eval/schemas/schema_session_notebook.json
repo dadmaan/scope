@@ -1,0 +1,790 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aimusic-eval.org/schemas/session_notebook.json",
+  "title": "The Session Notebook Schema",
+  "description": "Hierarchical schema for unified session capture combining Templates 01, 03, and 06",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["template_metadata", "core_session"],
+  "properties": {
+    "template_metadata": {
+      "type": "object",
+      "description": "Metadata about the template and export",
+      "required": ["template_type", "template_version", "created_at"],
+      "properties": {
+        "template_type": {
+          "type": "string",
+          "const": "session_notebook",
+          "description": "Always 'session_notebook' for this template"
+        },
+        "template_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version (e.g., 1.0.0)"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when session was created"
+        },
+        "modified_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when session was last modified"
+        },
+        "exported_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when session was exported"
+        }
+      }
+    },
+    "core_session": {
+      "type": "object",
+      "description": "Core session data from Template 01",
+      "required": ["metadata", "creative_context"],
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "description": "Session identification and technical details",
+          "required": ["session_id", "date", "system_name", "evaluator"],
+          "properties": {
+            "session_id": {
+              "type": "string",
+              "pattern": "^session_[a-z0-9_]+_\\d{8}_\\d{6}$",
+              "description": "Unique session identifier (e.g., session_musicgen_20251020_143022)"
+            },
+            "date": {
+              "type": "string",
+              "format": "date",
+              "description": "Session date (YYYY-MM-DD)"
+            },
+            "start_time": {
+              "type": "string",
+              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+              "description": "Session start time (HH:MM)"
+            },
+            "end_time": {
+              "type": "string",
+              "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+              "description": "Session end time (HH:MM)"
+            },
+            "system_name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Name of the AI music system being evaluated"
+            },
+            "system_version": {
+              "type": "string",
+              "description": "Version or model variant"
+            },
+            "interface_type": {
+              "type": "string",
+              "enum": ["Web Interface", "Local GUI", "Command Line", "VST Plugin", "AU Plugin", "Standalone App", "Other"],
+              "description": "Interface type used"
+            },
+            "hardware": {
+              "type": "string",
+              "description": "Hardware specifications (GPU, RAM, CPU)"
+            },
+            "evaluator": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Name or ID of the evaluator"
+            },
+            "session_number": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Sequential session number for this system"
+            },
+            "session_type": {
+              "type": "string",
+              "enum": ["Standard Session", "Full Workflow Cycle"],
+              "description": "Type of session (determines if workflow phase section is used)"
+            }
+          }
+        },
+        "creative_context": {
+          "type": "object",
+          "description": "Musical goals and constraints for this session",
+          "properties": {
+            "musical_element": {
+              "type": "string",
+              "enum": ["Bassline", "Melody", "Harmony", "Drum Pattern", "Percussion", "Riffs", "Texture", "Effects", "Full Mix", "Other"],
+              "description": "Primary musical element being generated"
+            },
+            "genre": {
+              "type": "string",
+              "description": "Genre or style (e.g., Funk, Electronic, Jazz)"
+            },
+            "tempo": {
+              "type": "string",
+              "description": "Target tempo (e.g., '120 BPM', '90-130 BPM')"
+            },
+            "key": {
+              "type": "string",
+              "description": "Key or scale (e.g., 'C minor', 'A major pentatonic')"
+            },
+            "intended_use": {
+              "type": "string",
+              "enum": ["Foundation", "Layer", "Accent", "Background", "Transition", "Feature Element", "Experimental"],
+              "description": "Intended role in the composition"
+            },
+            "references": {
+              "type": "string",
+              "description": "Reference tracks or inspiration sources"
+            }
+          }
+        },
+        "generation_attempts": {
+          "type": "array",
+          "description": "List of all generation attempts made during session",
+          "items": {
+            "type": "object",
+            "required": ["attempt_number", "time", "input_type"],
+            "properties": {
+              "attempt_number": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "time": {
+                "type": "string",
+                "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+                "description": "Time of attempt (HH:MM)"
+              },
+              "input_type": {
+                "type": "string",
+                "enum": ["Text prompt", "MIDI file", "Audio file", "Melody condition", "Attribute tags", "Other"]
+              },
+              "input_content": {
+                "type": "string",
+                "description": "Exact prompt or input specification"
+              },
+              "parameters": {
+                "type": "string",
+                "description": "Parameters used (duration, temperature, model, etc.)"
+              },
+              "generation_time": {
+                "type": "string",
+                "description": "Time taken to generate (e.g., '45 seconds for 30s output')"
+              },
+              "output_description": {
+                "type": "string",
+                "description": "Detailed description of generated output"
+              },
+              "match_to_intent": {
+                "type": "string",
+                "enum": ["Perfect", "Close", "Partial", "Poor", "Completely different"],
+                "description": "How well output matched intent (observational, not formal scoring)"
+              },
+              "quality_rating": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "description": "Quick quality rating (observational, not formal criterion score)"
+              },
+              "usability": {
+                "type": "string",
+                "enum": ["Usable as-is", "Usable with processing", "Not usable", "Uncertain"]
+              },
+              "issues": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Prompt interpretation failure",
+                    "Wrong instrument/element",
+                    "Multiple instruments blended",
+                    "Poor audio quality",
+                    "Structural incoherence",
+                    "Wrong tempo/key/style",
+                    "Too short/long",
+                    "Technical error/crash",
+                    "None"
+                  ]
+                }
+              },
+              "artifacts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Compression artifacts",
+                    "Frequency issues",
+                    "Timing/rhythm inconsistencies",
+                    "Pitch/tuning problems",
+                    "Glitches or noise",
+                    "None"
+                  ]
+                }
+              },
+              "notable_observations": {
+                "type": "string",
+                "description": "Anything unexpected, interesting, or significant"
+              }
+            }
+          }
+        },
+        "prompt_refinement": {
+          "type": "object",
+          "description": "Documentation of prompt iteration process",
+          "properties": {
+            "initial": {
+              "type": "string",
+              "description": "First prompt attempt"
+            },
+            "final": {
+              "type": "string",
+              "description": "Final/best prompt"
+            },
+            "iterations": {
+              "type": "string",
+              "description": "Description of changes made between attempts"
+            },
+            "responds_well": {
+              "type": "string",
+              "description": "What the system responds well to"
+            },
+            "struggles_with": {
+              "type": "string",
+              "description": "What the system struggles with"
+            },
+            "unexpected": {
+              "type": "string",
+              "description": "Unexpected system behaviors"
+            },
+            "effective_keywords": {
+              "type": "string",
+              "description": "Comma-separated effective keywords"
+            },
+            "ineffective_keywords": {
+              "type": "string",
+              "description": "Comma-separated ineffective keywords"
+            }
+          }
+        },
+        "post_processing": {
+          "type": "object",
+          "description": "Post-processing requirements and steps",
+          "properties": {
+            "separation": {
+              "type": "object",
+              "properties": {
+                "needed": {
+                  "type": "string",
+                  "enum": ["Yes", "No", "N/A (single instrument)"]
+                },
+                "tool": {
+                  "type": "string",
+                  "description": "Tool used (e.g., Demucs, Spleeter)"
+                },
+                "quality": {
+                  "type": "string",
+                  "description": "Description of separation quality"
+                }
+              }
+            },
+            "eq": {
+              "type": "object",
+              "properties": {
+                "applied": {"type": "boolean"},
+                "details": {"type": "string"}
+              }
+            },
+            "compression": {
+              "type": "object",
+              "properties": {
+                "applied": {"type": "boolean"},
+                "details": {"type": "string"}
+              }
+            },
+            "reverb": {
+              "type": "object",
+              "properties": {
+                "applied": {"type": "boolean"},
+                "details": {"type": "string"}
+              }
+            },
+            "trimming": {
+              "type": "object",
+              "properties": {
+                "applied": {"type": "boolean"},
+                "details": {"type": "string"}
+              }
+            },
+            "other": {
+              "type": "string",
+              "description": "Other processing applied"
+            },
+            "total_time": {
+              "type": "string",
+              "description": "Total post-processing time"
+            }
+          }
+        },
+        "daw_integration": {
+          "type": "object",
+          "description": "DAW integration testing results",
+          "properties": {
+            "daw": {
+              "type": "string",
+              "enum": ["Ableton Live", "Logic Pro", "FL Studio", "Pro Tools", "Cubase", "Studio One", "Reaper", "Other", "None tested"]
+            },
+            "format": {
+              "type": "string",
+              "enum": ["WAV", "MP3", "AIFF", "FLAC", "MIDI", "Other"]
+            },
+            "sample_rate": {
+              "type": "string",
+              "description": "Sample rate and bit depth"
+            },
+            "context": {
+              "type": "string",
+              "description": "What was integrated with"
+            },
+            "issues": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Tempo sync problems",
+                  "Cannot start on specific beat",
+                  "Timing/rhythm drift",
+                  "Key/pitch incompatibility",
+                  "File format issues",
+                  "Metadata loss",
+                  "Plugin compatibility",
+                  "None"
+                ]
+              }
+            },
+            "workarounds": {
+              "type": "string",
+              "description": "Adaptations or manual adjustments needed"
+            },
+            "ease": {
+              "type": "string",
+              "enum": ["Seamless", "Minor adjustments", "Significant work", "Failed"]
+            },
+            "time": {
+              "type": "string",
+              "description": "Time to integrate"
+            },
+            "result": {
+              "type": "string",
+              "enum": ["Fully integrated", "Partially integrated", "Could not integrate"]
+            }
+          }
+        },
+        "reflections": {
+          "type": "object",
+          "description": "Subjective experience and insights",
+          "properties": {
+            "what_worked": {
+              "type": "string",
+              "description": "Positive aspects, successes"
+            },
+            "frustrations": {
+              "type": "string",
+              "description": "Challenges, roadblocks, disappointments"
+            },
+            "discoveries": {
+              "type": "string",
+              "description": "Surprising behaviors, insights"
+            },
+            "comparisons": {
+              "type": "string",
+              "description": "Comparisons to other sessions or systems"
+            },
+            "emotional_state": {
+              "type": "string",
+              "description": "Evaluator's emotional state"
+            }
+          }
+        },
+        "session_stats": {
+          "type": "object",
+          "description": "Aggregate session metrics",
+          "properties": {
+            "total_attempts": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Auto-calculated from generation_attempts.length"
+            },
+            "usable_outputs": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "generation_time": {
+              "type": "string",
+              "description": "Total generation time"
+            },
+            "processing_time": {
+              "type": "string",
+              "description": "Total processing time"
+            },
+            "integration_time": {
+              "type": "string",
+              "description": "Total integration time"
+            },
+            "productivity": {
+              "type": "string",
+              "enum": ["High", "Medium", "Low"]
+            },
+            "efficiency": {
+              "type": "string",
+              "enum": ["Faster than traditional", "Comparable", "Slower than traditional"]
+            }
+          }
+        }
+      }
+    },
+    "optional_incident": {
+      "type": "object",
+      "description": "Critical incident reporting from Template 03 (optional, only if incident occurred)",
+      "properties": {
+        "logged": {
+          "type": "boolean",
+          "description": "Whether an incident was logged"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "date": {"type": "string", "format": "date"},
+            "time": {"type": "string", "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"}
+          }
+        },
+        "classification": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Breakthrough/Success",
+                "Failure/Error",
+                "Unexpected Behavior",
+                "Workflow Discovery",
+                "Creative Insight",
+                "Technical Issue",
+                "Prompt Engineering Discovery",
+                "Integration Challenge",
+                "Quality Issue"
+              ]
+            },
+            "severity": {
+              "type": "string",
+              "enum": ["Minor", "Moderate", "Major", "Critical"]
+            }
+          }
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "what_happened": {"type": "string"},
+            "goal": {"type": "string"},
+            "expected": {"type": "string"},
+            "actual": {"type": "string"},
+            "why_notable": {"type": "string"}
+          }
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "prior_actions": {"type": "string"},
+            "system_state": {"type": "string"}
+          }
+        },
+        "autoethnography": {
+          "type": "object",
+          "description": "Evaluator state (Template 03's strength)",
+          "properties": {
+            "time_of_day": {
+              "type": "string",
+              "enum": ["Morning (6am-12pm)", "Afternoon (12pm-6pm)", "Evening (6pm-12am)", "Night (12am-6am)"]
+            },
+            "fatigue_level": {
+              "type": "string",
+              "enum": ["Fresh/Alert", "Normal", "Somewhat Tired", "Very Fatigued"]
+            },
+            "emotional_state": {
+              "type": "string",
+              "enum": ["Curious/Exploratory", "Focused/Determined", "Frustrated", "Excited", "Neutral", "Confused", "Other"]
+            },
+            "external_pressures": {"type": "string"}
+          }
+        },
+        "analysis": {
+          "type": "object",
+          "properties": {
+            "significance": {"type": "string"},
+            "affected_criteria": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "1. Usability",
+                  "2. Generation Speed",
+                  "3. Audio Quality",
+                  "4. Stylistic Accuracy",
+                  "5. Parameter Control",
+                  "6. Content Generation Control",
+                  "7. DAW Integration",
+                  "8. Creative Workflow Fit"
+                ]
+              }
+            },
+            "theoretical_insights": {"type": "string"},
+            "workflow_impact": {"type": "string"}
+          }
+        },
+        "root_cause": {
+          "type": "object",
+          "description": "Root cause analysis framework (Template 03's strength)",
+          "properties": {
+            "probable_causes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "User error/misunderstanding",
+                  "System bug/glitch",
+                  "Model limitation",
+                  "Inadequate documentation",
+                  "Ambiguous prompt",
+                  "Environmental factors",
+                  "Integration issue",
+                  "Resource constraints",
+                  "Unexpected feature interaction",
+                  "Training data bias",
+                  "Random/stochastic behavior",
+                  "Other"
+                ]
+              }
+            },
+            "evidence": {"type": "string"},
+            "alternatives": {"type": "string"}
+          }
+        },
+        "learnings": {
+          "type": "object",
+          "description": "3D learnings structure (Template 03's strength)",
+          "properties": {
+            "system": {"type": "string", "description": "What learned about the system"},
+            "evaluation": {"type": "string", "description": "What learned about evaluation"},
+            "practice": {"type": "string", "description": "What learned about own practice"},
+            "approach_changes": {"type": "string"},
+            "recommendations": {"type": "string"}
+          }
+        },
+        "reproducibility": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": [
+                "Consistently reproducible",
+                "Sometimes reproducible",
+                "Difficult to reproduce",
+                "Not reproducible",
+                "Have not attempted"
+              ]
+            },
+            "steps": {"type": "string"},
+            "conditions": {"type": "string"},
+            "attempts": {"type": "integer", "minimum": 0},
+            "success_rate": {"type": "string"}
+          }
+        },
+        "documentation": {
+          "type": "object",
+          "properties": {
+            "evidence_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Screenshots",
+                  "Audio recordings",
+                  "Video screen capture",
+                  "System logs",
+                  "Prompt history",
+                  "Generated output files",
+                  "Error messages",
+                  "None"
+                ]
+              }
+            },
+            "location": {"type": "string"},
+            "related": {"type": "string"},
+            "follow_up": {"type": "string"}
+          }
+        }
+      }
+    },
+    "optional_workflow_phase": {
+      "type": "object",
+      "description": "Workflow phase documentation from Template 06 (optional, only if session_type = 'Full Workflow Cycle')",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether workflow phase documentation is enabled"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "phase_type": {
+              "type": "string",
+              "enum": ["Content Generation", "Curation", "Integration", "Post-Production"]
+            },
+            "start_time": {"type": "string", "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"},
+            "end_time": {"type": "string", "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"},
+            "systems_used": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        },
+        "pre_phase": {
+          "type": "object",
+          "properties": {
+            "goal": {"type": "string"},
+            "materials": {"type": "string"},
+            "vision": {"type": "string"},
+            "expected_challenges": {"type": "string"},
+            "time_estimate": {"type": "number", "minimum": 0}
+          }
+        },
+        "execution_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "timestamp": {"type": "string"},
+              "activity": {"type": "string"},
+              "outcome": {"type": "string"}
+            }
+          }
+        },
+        "system_performance": {
+          "type": "string",
+          "description": "How each system performed in this phase"
+        },
+        "generation": {
+          "type": "object",
+          "description": "Content Generation phase-specific details",
+          "properties": {
+            "approach": {
+              "type": "string",
+              "enum": ["Prompt-based", "Parameter-driven", "Hybrid", "Iterative refinement", "Other"]
+            },
+            "prompts": {"type": "string"},
+            "iterations": {"type": "integer", "minimum": 1},
+            "output": {"type": "string"}
+          }
+        },
+        "curation": {
+          "type": "object",
+          "description": "Curation phase-specific details",
+          "properties": {
+            "candidates_reviewed": {"type": "integer", "minimum": 0},
+            "candidates_selected": {"type": "integer", "minimum": 0},
+            "criteria": {"type": "string"},
+            "notes": {"type": "string"}
+          }
+        },
+        "integration": {
+          "type": "object",
+          "description": "Integration phase-specific details",
+          "properties": {
+            "activities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Import audio", "Import MIDI", "Arrangement", "Mixing", "Effects processing", "Other"]
+              }
+            },
+            "challenges": {"type": "string"},
+            "success": {"type": "string"}
+          }
+        },
+        "post_production": {
+          "type": "object",
+          "description": "Post-production phase-specific details",
+          "properties": {
+            "activities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Mixing", "Mastering", "Effects", "EQ", "Compression", "Reverb/Delay", "Automation", "Other"]
+              }
+            },
+            "ai_percentage": {"type": "integer", "minimum": 0, "maximum": 100},
+            "modifications": {"type": "string"},
+            "quality": {
+              "type": "string",
+              "enum": ["Excellent", "Good", "Acceptable", "Needs work", "Failed"]
+            }
+          }
+        },
+        "efficiency": {
+          "type": "object",
+          "description": "Efficiency analysis (Template 06's strength)",
+          "properties": {
+            "time_planned": {"type": "integer", "minimum": 0, "description": "Minutes"},
+            "time_actual": {"type": "integer", "minimum": 0, "description": "Minutes"},
+            "breakdown": {"type": "string"},
+            "bottlenecks": {"type": "string"},
+            "rating": {
+              "type": "string",
+              "enum": ["Very efficient", "Efficient", "Moderate", "Inefficient", "Very inefficient"]
+            }
+          }
+        },
+        "outcome": {
+          "type": "object",
+          "properties": {
+            "goals_achievement": {
+              "type": "string",
+              "enum": ["Completely", "Mostly", "Partially", "Minimally", "Not at all"]
+            },
+            "quality": {
+              "type": "string",
+              "enum": ["Excellent", "Good", "Acceptable", "Poor", "Failed"]
+            },
+            "usable_outputs": {"type": "string"},
+            "surprises": {"type": "string"},
+            "next_phase_impact": {"type": "string"}
+          }
+        },
+        "criterion_bridge": {
+          "type": "object",
+          "description": "Criterion connections (Template 06's unique strength)",
+          "properties": {
+            "connections": {"type": "string", "description": "Map workflow observations to 8 performance criteria"},
+            "evidence": {"type": "string", "description": "Evidence for quantitative scores"}
+          }
+        },
+        "creative_experience": {
+          "type": "object",
+          "properties": {
+            "flow_state": {
+              "type": "string",
+              "enum": ["Deep flow", "Good focus", "Moderate", "Distracted", "Frustrated"]
+            },
+            "satisfaction": {"type": "integer", "minimum": 1, "maximum": 5},
+            "reflection": {"type": "string"},
+            "would_repeat": {
+              "type": "string",
+              "enum": ["Definitely", "Probably", "Maybe", "Probably not", "Definitely not"]
+            }
+          }
+        }
+      }
+    },
+    "custom_fields": {
+      "type": "object",
+      "description": "Extensibility for user-defined custom fields",
+      "additionalProperties": true
+    }
+  }
+}

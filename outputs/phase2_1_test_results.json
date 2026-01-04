@@ -1,0 +1,277 @@
+{
+  "date": "2025-10-20T17:54:17.208045",
+  "categories": {
+    "Category 1": {
+      "tests": [
+        {
+          "name": "Test 1.1: Notebook file exists",
+          "passed": true,
+          "details": "/workspace/aimusic-eval/phase1/notebooks/the_synthesis_journal.ipynb"
+        },
+        {
+          "name": "Test 1.2: Schema file exists",
+          "passed": true,
+          "details": "/workspace/aimusic-eval/phase1/notebooks/schema_synthesis_journal.json"
+        },
+        {
+          "name": "Test 1.3: Notebook is valid JSON",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 1.4: Cell count (expected ~62)",
+          "passed": true,
+          "details": "Found 62 cells"
+        },
+        {
+          "name": "Test 1.5: Cell types distribution",
+          "passed": true,
+          "details": "Code: 34, Markdown: 28"
+        },
+        {
+          "name": "Test 1.6: Key imports present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 1.7: Tab UI structure present",
+          "passed": true,
+          "details": ""
+        }
+      ],
+      "passed": 7,
+      "failed": 0
+    },
+    "Category 2": {
+      "tests": [
+        {
+          "name": "Test 2.1: Test session files available",
+          "passed": true,
+          "details": "Found 6 test sessions"
+        },
+        {
+          "name": "Test 2.2: Session file validity",
+          "passed": true,
+          "details": "6/6 sessions valid"
+        },
+        {
+          "name": "Test 2.3: Session schema available for validation",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 2.4: Session schema spot-check",
+          "passed": true,
+          "details": "Checked: template_type, session_id, generation_attempts"
+        },
+        {
+          "name": "Test 2.5: Evidence keywords present for all criteria",
+          "passed": true,
+          "details": "Matches: {'usability': 6, 'speed': 6, 'quality': 6, 'style': 6, 'control': 6, 'workflow': 6}"
+        }
+      ],
+      "passed": 5,
+      "failed": 0
+    },
+    "Category 3": {
+      "tests": [
+        {
+          "name": "Test 3.1: Sessions loaded for evidence extraction",
+          "passed": true,
+          "details": "Loaded 6 sessions"
+        },
+        {
+          "name": "Test 3.2: All 8 criteria have evidence available",
+          "passed": true,
+          "details": "Evidence counts: {'Usability': 6, 'Generation Speed': 6, 'Audio Quality': 6, 'Stylistic Accuracy': 6, 'Parameter Control': 6, 'Content Generation Control': 6, 'DAW Integration': 4, 'Creative Workflow Fit': 5}"
+        },
+        {
+          "name": "Test 3.3: Evidence excerpt for Usability",
+          "passed": true,
+          "details": "Length: 771 chars"
+        }
+      ],
+      "passed": 3,
+      "failed": 0
+    },
+    "Category 4": {
+      "tests": [
+        {
+          "name": "Test 4.1: All 8 criteria sections present",
+          "passed": false,
+          "details": "Found 6/8 criteria"
+        },
+        {
+          "name": "Test 4.2: Criterion 4 bug fix verified",
+          "passed": true,
+          "details": "All widgets present: stylistic_score, stylistic_confidence, genres_tested"
+        },
+        {
+          "name": "Test 4.3: Score calculation logic present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 4.4: Radar chart visualization code present",
+          "passed": false,
+          "details": ""
+        },
+        {
+          "name": "Test 4.5: Progress indicator present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 4.6: Overall synthesis section present",
+          "passed": true,
+          "details": "Found 3/3 synthesis fields"
+        }
+      ],
+      "passed": 4,
+      "failed": 2
+    },
+    "Category 5": {
+      "tests": [
+        {
+          "name": "Test 5.1: All 10 journal sections present",
+          "passed": true,
+          "details": "Found 10/10 sections"
+        },
+        {
+          "name": "Test 5.2: Key journal fields present",
+          "passed": true,
+          "details": "Found 9/9 key fields"
+        },
+        {
+          "name": "Test 5.3: Append entry functionality present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 5.4: Historical entries accordion present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 5.5: Entry count tracking present",
+          "passed": true,
+          "details": ""
+        }
+      ],
+      "passed": 5,
+      "failed": 0
+    },
+    "Category 6": {
+      "tests": [
+        {
+          "name": "Test 6.1: Minimum 5 entries requirement check present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 6.2: All 5 rating dimensions present",
+          "passed": true,
+          "details": "Found 5/5 dimensions"
+        },
+        {
+          "name": "Test 6.3: Trend calculation (half comparison) present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 6.4: Highlights section present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 6.5: Line chart visualization present",
+          "passed": true,
+          "details": ""
+        }
+      ],
+      "passed": 5,
+      "failed": 0
+    },
+    "Category 7": {
+      "tests": [
+        {
+          "name": "Test 7.1: JSON export functionality present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 7.2: Markdown export functionality present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 7.3: CSV export functionality present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 7.4: Validation function present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 7.5: Export versioning/timestamp present",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 7.6: Output directory handling present",
+          "passed": true,
+          "details": ""
+        }
+      ],
+      "passed": 6,
+      "failed": 0
+    },
+    "Category 8": {
+      "tests": [
+        {
+          "name": "Test 8.1: Schema file valid JSON",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 8.2: Schema has required fields and properties",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 8.3: All key schema sections present",
+          "passed": false,
+          "details": "Found 3/4 sections"
+        },
+        {
+          "name": "Test 8.4: Criteria section in schema",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 8.5: Journal entries structure in schema",
+          "passed": true,
+          "details": ""
+        },
+        {
+          "name": "Test 8.6: Template version tracking present",
+          "passed": true,
+          "details": ""
+        }
+      ],
+      "passed": 5,
+      "failed": 1
+    }
+  },
+  "bugs": [],
+  "summary": {
+    "status": "PASS_WITH_ISSUES",
+    "recommendation": "Minor fixes recommended before Phase 3",
+    "total_tests": 43,
+    "passed": 40,
+    "failed": 3,
+    "pass_rate": 93.02325581395348
+  }
+}

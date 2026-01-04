@@ -1,0 +1,16 @@
+{
+  "theme": "light",
+  "show_tracebacks": false,
+  "template": "lab",
+  "VoilaConfiguration": {
+    "enable_nbextensions": true,
+    "file_allowlist": [
+      ".*\\.(json|csv|md)$"
+    ],
+    "extension_language_mapping": {
+      ".json": "json",
+      ".csv": "text",
+      ".md": "markdown"
+    }
+  }
+}

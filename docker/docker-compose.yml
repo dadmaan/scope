@@ -1,0 +1,24 @@
+services:
+  jupyter:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        HOST_UID: ${HOST_UID:-1000}
+        HOST_GID: ${HOST_GID:-1000}
+    container_name: aimusic-eval-jupyter
+    ports:
+      - "8889:8888"
+    volumes:
+      - ..:/workspace
+    environment:
+      - PYTHONUNBUFFERED=1
+      - JUPYTER_ENABLE_LAB=yes
+      - PYTHONPATH=/workspace/phase1
+    restart: unless-stopped
+    networks:
+      - aimusic-network
+
+networks:
+  aimusic-network:
+    driver: bridge

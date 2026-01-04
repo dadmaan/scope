@@ -1,0 +1,367 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aimusic-eval.org/schemas/comparative_dashboard.json",
+  "title": "The Comparative Dashboard Schema",
+  "description": "Schema for multi-system comparison dashboard integrating Phase 1 and Phase 2 data",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["template_metadata", "comparison_metadata", "systems_compared", "score_matrix"],
+  "properties": {
+    "template_metadata": {
+      "type": "object",
+      "description": "Template and export metadata",
+      "required": ["template_type", "template_version", "created_at"],
+      "properties": {
+        "template_type": {
+          "type": "string",
+          "const": "comparative_dashboard"
+        },
+        "template_version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "exported_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "comparison_metadata": {
+      "type": "object",
+      "description": "Information about this comparison",
+      "required": ["evaluator", "num_systems", "comparison_date"],
+      "properties": {
+        "evaluator": {
+          "type": "string",
+          "description": "Name or ID of evaluator"
+        },
+        "num_systems": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 10,
+          "description": "Number of systems being compared"
+        },
+        "comparison_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "evaluation_period": {
+          "type": "object",
+          "properties": {
+            "start_date": {"type": "string", "format": "date"},
+            "end_date": {"type": "string", "format": "date"}
+          }
+        },
+        "comparison_purpose": {
+          "type": "string",
+          "description": "Why this comparison was conducted"
+        }
+      }
+    },
+    "systems_compared": {
+      "type": "array",
+      "description": "List of systems included in comparison",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["system_name", "synthesis_file"],
+        "properties": {
+          "system_name": {
+            "type": "string",
+            "description": "Name of AI music system"
+          },
+          "system_version": {
+            "type": "string",
+            "description": "Version or model variant"
+          },
+          "synthesis_file": {
+            "type": "string",
+            "description": "Path to synthesis_*.json file"
+          },
+          "sessions_imported": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of Phase 1 sessions underlying this synthesis"
+          },
+          "journal_entries": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of journal entries in synthesis"
+          },
+          "evaluation_date": {
+            "type": "string",
+            "format": "date",
+            "description": "When this system was evaluated"
+          }
+        }
+      }
+    },
+    "score_matrix": {
+      "type": "object",
+      "description": "8 criteria × N systems score grid",
+      "required": ["criteria_scores", "statistics"],
+      "properties": {
+        "criteria_scores": {
+          "type": "object",
+          "description": "Scores for each criterion across all systems",
+          "properties": {
+            "usability": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            },
+            "generation_speed": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            },
+            "audio_quality": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            },
+            "stylistic_accuracy": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            },
+            "parameter_control": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            },
+            "content_generation_control": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            },
+            "daw_integration": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            },
+            "creative_workflow_fit": {
+              "type": "array",
+              "items": {"type": "number", "minimum": 0, "maximum": 5}
+            }
+          }
+        },
+        "average_scores": {
+          "type": "array",
+          "description": "Overall average score per system",
+          "items": {"type": "number", "minimum": 0, "maximum": 5}
+        },
+        "statistics": {
+          "type": "object",
+          "description": "Statistical summary per criterion",
+          "properties": {
+            "means": {
+              "type": "object",
+              "description": "Mean score per criterion across all systems"
+            },
+            "std_devs": {
+              "type": "object",
+              "description": "Standard deviation per criterion"
+            },
+            "ranges": {
+              "type": "object",
+              "description": "Score range (max - min) per criterion"
+            },
+            "winners": {
+              "type": "object",
+              "description": "System(s) with highest score per criterion"
+            }
+          }
+        }
+      }
+    },
+    "criterion_comparisons": {
+      "type": "array",
+      "description": "Detailed analysis for each of 8 criteria",
+      "items": {
+        "type": "object",
+        "required": ["criterion_name"],
+        "properties": {
+          "criterion_name": {
+            "type": "string",
+            "enum": [
+              "Usability",
+              "Generation Speed",
+              "Audio Quality",
+              "Stylistic Accuracy",
+              "Parameter Control",
+              "Content Generation Control",
+              "DAW Integration",
+              "Creative Workflow Fit"
+            ]
+          },
+          "winner": {
+            "type": "string",
+            "description": "System with highest score for this criterion"
+          },
+          "performance_comparison": {
+            "type": "string",
+            "description": "How systems differ on this criterion"
+          },
+          "root_cause_analysis": {
+            "type": "string",
+            "description": "Why these differences exist (architecture, design, etc.)"
+          },
+          "practical_implications": {
+            "type": "string",
+            "description": "Real-world impact of these differences"
+          },
+          "evidence_summary": {
+            "type": "array",
+            "description": "Evidence excerpts from each system's synthesis",
+            "items": {
+              "type": "object",
+              "properties": {
+                "system": {"type": "string"},
+                "evidence": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "patterns": {
+      "type": "object",
+      "description": "Universal patterns and distinctive capabilities",
+      "properties": {
+        "universal_strengths": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Strengths ALL systems share"
+        },
+        "universal_limitations": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Limitations ALL systems share"
+        },
+        "field_level_insights": {
+          "type": "string",
+          "description": "What patterns reveal about current state of AI music generation"
+        },
+        "distinctive_capabilities": {
+          "type": "array",
+          "description": "What makes each system unique",
+          "items": {
+            "type": "object",
+            "properties": {
+              "system": {"type": "string"},
+              "unique_strengths": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "use_case_recommendations": {
+      "type": "object",
+      "description": "Task-based and user profile recommendations",
+      "properties": {
+        "task_mappings": {
+          "type": "array",
+          "description": "Best system for each workflow task",
+          "items": {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "enum": [
+                  "Quick Ideation",
+                  "Composition",
+                  "Arrangement",
+                  "Sound Design",
+                  "Specific Instrument Generation",
+                  "Rhythmic Elements",
+                  "Melodic/Harmonic Elements",
+                  "Textures/Ambience",
+                  "Final Production"
+                ]
+              },
+              "recommended_system": {"type": "string"},
+              "rationale": {"type": "string"}
+            }
+          }
+        },
+        "user_profiles": {
+          "type": "object",
+          "properties": {
+            "beginners": {
+              "type": "object",
+              "properties": {
+                "recommended_system": {"type": "string"},
+                "rationale": {"type": "string"}
+              }
+            },
+            "professionals": {
+              "type": "object",
+              "properties": {
+                "recommended_system": {"type": "string"},
+                "rationale": {"type": "string"}
+              }
+            },
+            "experimental_artists": {
+              "type": "object",
+              "properties": {
+                "recommended_system": {"type": "string"},
+                "rationale": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "evaluator_synthesis": {
+      "type": "object",
+      "description": "Evaluator's overall comparative insights",
+      "properties": {
+        "surprises": {
+          "type": "string",
+          "description": "Unexpected comparative insights"
+        },
+        "confirmations": {
+          "type": "string",
+          "description": "Hypotheses validated by comparison"
+        },
+        "open_questions": {
+          "type": "string",
+          "description": "What remains unclear"
+        },
+        "evaluator_positionality": {
+          "type": "string",
+          "description": "How expertise/background influenced judgments"
+        },
+        "final_recommendation": {
+          "type": "object",
+          "properties": {
+            "single_choice": {
+              "type": "string",
+              "description": "If forced to choose one system"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Why this choice"
+            }
+          }
+        }
+      }
+    },
+    "visualizations": {
+      "type": "object",
+      "description": "Metadata about generated visualizations",
+      "properties": {
+        "radar_chart_generated": {"type": "boolean"},
+        "heatmap_generated": {"type": "boolean"},
+        "bar_chart_generated": {"type": "boolean"}
+      }
+    },
+    "custom_fields": {
+      "type": "object",
+      "description": "Extensibility for custom comparative analyses",
+      "additionalProperties": true
+    }
+  }
+}

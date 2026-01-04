@@ -1,0 +1,49 @@
+{
+  "export_date": "2025-10-11T14:35:00.000000",
+  "framework_version": "1.0.0",
+  "template_type": "quantitative_assessment",
+  "data": {
+    "system_info": {
+      "system": "Riffusion",
+      "period": "2025-10-01 to 2025-10-10",
+      "total_sessions": 4,
+      "evaluator": "Research Evaluator",
+      "date": "2025-10-10"
+    },
+    "criteria_scores": {
+      "usability": 5,
+      "generation_speed": 4,
+      "audio_quality": 3,
+      "stylistic_accuracy": 3,
+      "parameter_control": 2,
+      "content_generation_control": 2,
+      "daw_integration": 3,
+      "creative_workflow": 4
+    },
+    "criteria_evidence": {
+      "usability": "Extremely user-friendly interface. Visual spectrogram feedback is intuitive and engaging.",
+      "generation_speed": "Fast generation but not quite as rapid as MusicGen. Acceptable for creative work.",
+      "audio_quality": "Audio quality is variable. Some artifacts and inconsistent fidelity across generations.",
+      "stylistic_accuracy": "Style matching is inconsistent. Works better for some genres than others.",
+      "parameter_control": "Very limited parameter control. Minimal ability to fine-tune outputs.",
+      "content_generation_control": "Limited control over musical content. Outputs can be unpredictable.",
+      "daw_integration": "Basic file export available. No advanced integration features.",
+      "creative_workflow": "Visual interface encourages experimentation. Good for exploratory creative work."
+    },
+    "overall_assessment": {
+      "strengths": [
+        "Excellent usability with innovative visual interface",
+        "Encourages creative experimentation",
+        "Accessible to users without technical background",
+        "Unique spectrogram-based interaction model"
+      ],
+      "weaknesses": [
+        "Inconsistent audio quality",
+        "Limited stylistic accuracy for many genres",
+        "Very minimal parameter control",
+        "Unpredictable output quality"
+      ],
+      "recommendations": "Best for creative exploration and generating unexpected ideas. Not recommended for production work requiring consistent quality. Ideal for experimentation and inspiration."
+    }
+  }
+}

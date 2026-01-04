@@ -1,0 +1,189 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+  workflow_dispatch:
+
+jobs:
+  build-hugo-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+    
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+    
+    - name: Build Hugo site
+      working-directory: ./docs
+      run: |
+        hugo --minify
+    
+    - name: Upload Hugo artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: hugo-site
+        path: docs/public/
+        retention-days: 30
+    
+    - name: Deploy to GitHub Pages
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/public
+        cname: your-custom-domain.com  # Optional: remove if not using custom domain
+
+  build-api-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .[dev]
+        pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints
+    
+    - name: Build Sphinx documentation
+      run: |
+        # Create docs/api directory if needed
+        mkdir -p docs/api
+        
+        # Generate API documentation with sphinx-apidoc
+        sphinx-apidoc -o docs/api src/aimusic_eval -f -e
+        
+        # Create basic Sphinx configuration if not exists
+        if [ ! -f docs/api/conf.py ]; then
+          cat > docs/api/conf.py << 'EOF'
+# Sphinx configuration for API documentation
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../../src'))
+
+project = 'AI Music Evaluation Framework'
+copyright = '2025, AI Music Eval Contributors'
+author = 'AI Music Eval Contributors'
+
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx_autodoc_typehints',
+]
+
+html_theme = 'sphinx_rtd_theme'
+html_static_path = []
+templates_path = []
+
+autodoc_default_options = {
+    'members': True,
+    'member-order': 'bysource',
+    'special-members': '__init__',
+    'undoc-members': True,
+    'exclude-members': '__weakref__'
+}
+
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
+EOF
+        fi
+        
+        # Create index.rst if not exists
+        if [ ! -f docs/api/index.rst ]; then
+          cat > docs/api/index.rst << 'EOF'
+AI Music Evaluation Framework API
+==================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   modules
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+EOF
+        fi
+        
+        # Build documentation
+        cd docs/api
+        sphinx-build -b html . _build/html
+      continue-on-error: true
+    
+    - name: Upload API docs artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: api-docs
+        path: docs/api/_build/html/
+        retention-days: 30
+      if: success()
+
+  check-docs-links:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check README links
+      run: |
+        # Check if referenced files exist
+        echo "Checking README.md references..."
+        grep -o '\[.*\]([^)]*\.md)' README.md | sed 's/.*(\(.*\))/\1/' | while read file; do
+          if [ ! -f "$file" ]; then
+            echo "⚠️  Referenced file not found: $file"
+          else
+            echo "✓ Found: $file"
+          fi
+        done
+      continue-on-error: true
+    
+    - name: Check CONTRIBUTING links
+      run: |
+        echo "Checking CONTRIBUTING.md references..."
+        grep -o '\[.*\]([^)]*\.md)' CONTRIBUTING.md | sed 's/.*(\(.*\))/\1/' | while read file; do
+          if [ ! -f "$file" ]; then
+            echo "⚠️  Referenced file not found: $file"
+          else
+            echo "✓ Found: $file"
+          fi
+        done
+      continue-on-error: true
+    
+    - name: Validate documentation structure
+      run: |
+        echo "Checking required documentation files..."
+        for file in README.md CONTRIBUTING.md CHANGELOG.md LICENSE; do
+          if [ -f "$file" ]; then
+            echo "✓ Found: $file"
+          else
+            echo "⚠️  Missing: $file"
+          fi
+        done

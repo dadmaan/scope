@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aimusic-eval"
+version = "2.0.0"
+description = "Evaluation framework for AI music generation systems"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Shayan Dadman"}
+]
+keywords = ["ai", "music", "evaluation", "jupyter", "notebooks"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Scientific/Engineering",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Jupyter",
+]
+
+dependencies = [
+    "jupyter>=1.0.0",
+    "ipython>=7.0.0",
+    "ipywidgets>=7.6.0",
+    "voila>=0.2.0",
+    "voila-gridstack>=0.2.0",
+    "pandas>=1.5.0",
+    "numpy>=1.23.0",
+    "tabulate>=0.9.0",
+    "plotly>=4.0.0",
+    "matplotlib>=3.3.0",
+    "pyyaml>=6.0",
+    "python-dateutil>=2.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=21.0",
+    "flake8>=3.9.0",
+    "mypy>=0.910",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/aimusic-eval"
+Documentation = "https://aimusic-eval.readthedocs.io"
+Repository = "https://github.com/yourusername/aimusic-eval.git"
+Issues = "https://github.com/yourusername/aimusic-eval/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+aimusic_eval = ["schemas/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = [
+    "--verbose",
+    "--strict-markers",
+    "--cov=aimusic_eval",
+    "--cov-report=html",
+    "--cov-report=term-missing:skip-covered",
+]
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

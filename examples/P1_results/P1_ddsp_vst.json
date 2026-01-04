@@ -1,0 +1,240 @@
+{
+  "meta": {
+    "evaluator_id": "Evaluator_001",
+    "system_name": "DDSP-VST",
+    "system_version": "1.2.0",
+    "evaluation_date": "2024-04-25",
+    "phase": "Phase 0 - System Overview",
+    "confidence_overall": 4,
+    "time_invested_minutes": 50,
+    "notes": "Preliminary assessment based on VST plugin testing with bass input, XY pad exploration, and DAW integration trials"
+  },
+  
+  "system_identification": {
+    "official_name": "DDSP-VST (Neutone SDK)",
+    "developer": "Neutone (DDSP architecture from Google Magenta research)",
+    "release_date": "2023-03",
+    "version_evaluated": "1.2.0",
+    "project_status": "Active - Commercial (Neutone platform) + Open Source (DDSP research)",
+    "repository_url": "https://github.com/QosmoInc/neutone_sdk",
+    "documentation_url": "https://neutone.space/docs",
+    "license": "Commercial VST (free tier available), DDSP research Apache 2.0",
+    "primary_use_case": "Real-time audio transformation for sound design, timbral exploration, and performance within DAW"
+  },
+  
+  "technical_architecture": {
+    "model_family": "Differentiable Digital Signal Processing (DDSP)",
+    "model_type": "Neural audio synthesis via learned harmonic/noise decomposition",
+    "framework": "PyTorch, DDSP library (Google Magenta), TorchScript export for VST",
+    "generation_mode": "Real-time audio transformation (streaming, <5ms latency)",
+    "tokenization_method": "N/A (operates on continuous audio waveform, not symbolic/discrete)",
+    "signal_processing_structure": "CREPE pitch extraction → DDSP decoder (harmonic oscillator + noise generator + subtractive filter) → audio output",
+    "parameter_count": "~5M parameters (DDSP decoder)",
+    "training_data": "Instrument-specific audio datasets (bass, brass, strings, etc. - model fine-tuned per instrument)",
+    "architecture_details": {
+      "pitch_extraction": "CREPE (Convolutional Representation for Pitch Estimation) - monophonic pitch tracking",
+      "harmonic_synthesis": "Additive synthesis with learned harmonic amplitudes and frequencies",
+      "noise_synthesis": "Filtered noise generator for breathiness and transient modeling",
+      "filter_bank": "Subtractive filtering for spectral shaping and timbral control",
+      "control_interface": "XY pad maps to timbral parameters (brightness, breathiness) in real-time"
+    }
+  },
+  
+  "interface_characteristics": {
+    "primary_interface": "VST plugin (VST3) with XY pad GUI for real-time timbral control",
+    "secondary_interfaces": ["Standalone application (via Neutone platform)", "Web interface (model testing)"],
+    "gui_available": true,
+    "daw_plugin": true,
+    "standalone_application": true,
+    "interaction_paradigm": "Instrument-like: play audio input (bass, keys, voice) → manipulate XY pad in real-time → transformed output",
+    "real_time_capable": true,
+    "learning_curve": "Low to moderate - XY pad intuitive for timbral exploration, but understanding pitch tracking limitations (monophonic only) requires experimentation",
+    "documentation_quality": 4,
+    "tutorial_availability": 4
+  },
+  
+  "hardware_requirements": {
+    "minimum_gpu": "None - CPU-only operation",
+    "recommended_gpu": "N/A",
+    "cpu_only_mode": "Standard (all processing CPU-based)",
+    "ram_minimum": "8GB system RAM",
+    "ram_recommended": "16GB system RAM (for DAW session context)",
+    "storage_requirements": "~200MB for VST plugin and models",
+    "operating_systems": ["Windows", "macOS", "Linux (experimental)"],
+    "cuda_required": false,
+    "accessibility_barrier": "Low - no GPU required, lightweight CPU processing, free tier available"
+  },
+  
+  "input_output_characteristics": {
+    "input_modalities": ["Audio (monophonic - bass, voice, lead synth, etc.)", "XY pad coordinates (timbral control)", "Preset selection"],
+    "output_modality": "Stereo audio (real-time transformed)",
+    "sample_rate": "Matches DAW project (typically 44.1kHz or 48kHz)",
+    "bit_depth": "32-bit float (VST standard)",
+    "generation_duration": "Real-time streaming (continuous, no duration limit)",
+    "output_format": "Audio stream to DAW track (VST plugin paradigm)",
+    "batch_processing": false,
+    "streaming_generation": true
+  },
+  
+  "musical_task_capabilities": {
+    "composition": {
+      "supported": true,
+      "confidence": 3,
+      "notes": "Transforms composed input audio into new timbres. Enables compositional exploration via timbral variation. Transformation paradigm (not generation) means user composes input, DDSP transforms."
+    },
+    "arrangement": {
+      "supported": true,
+      "confidence": 3,
+      "notes": "Real-time transformation allows arrangement-level decisions (e.g., transform bass for chorus intensity). Limited by transformation paradigm - cannot create new structural elements."
+    },
+    "sound_design": {
+      "supported": true,
+      "confidence": 5,
+      "notes": "PRIMARY USE CASE. XY pad enables real-time timbral exploration. Harmonic/noise decomposition provides unique sound design capabilities (e.g., turn bass into brass-like texture)."
+    },
+    "performance": {
+      "supported": true,
+      "confidence": 5,
+      "notes": "Real-time operation (<5ms latency) suitable for live performance. XY pad manipulable during playback for performative expression."
+    },
+    "mixing_mastering": {
+      "supported": false,
+      "confidence": 5,
+      "notes": "Timbral transformation only, no mixing/mastering capabilities (EQ, compression, etc. handled by separate DAW plugins)."
+    }
+  },
+  
+  "controllability_parameters": {
+    "xy_pad_x_axis": {
+      "available": true,
+      "range": "0.0 - 1.0 (continuous)",
+      "default": "0.5 (center position)",
+      "impact": "Horizontal XY pad movement controls spectral brightness. Right = brighter/more high harmonics, left = darker/fewer harmonics."
+    },
+    "xy_pad_y_axis": {
+      "available": true,
+      "range": "0.0 - 1.0 (continuous)",
+      "default": "0.5 (center position)",
+      "impact": "Vertical XY pad movement controls breathiness/noise. Up = more noise (breath, air, texture), down = pure harmonic (clean, tonal)."
+    },
+    "pitch_correction": {
+      "available": true,
+      "range": "0.0 - 1.0 (off to full quantization)",
+      "default": "0.0 (off)",
+      "impact": "Quantizes pitch tracking to musical scale (e.g., E minor pentatonic). Higher = tighter pitch correction. Useful for vocal inputs."
+    },
+    "mix_dry_wet": {
+      "available": true,
+      "range": "0% - 100%",
+      "default": "100% (fully wet/transformed)",
+      "impact": "Blends original (dry) and transformed (wet) audio. Allows subtle transformation by mixing dry input with DDSP output."
+    },
+    "preset_selection": {
+      "available": true,
+      "range": "~20 factory presets (Bass→Brass, Bass→Synth, Bass→Voice, etc.)",
+      "default": "None (user must select)",
+      "impact": "Loads pre-configured DDSP model (trained on specific target timbre). Determines overall transformation character."
+    }
+  },
+  
+  "preliminary_assessments": {
+    "usability": {
+      "score": 4,
+      "confidence": 4,
+      "rationale": "VST plugin installs easily, integrates into DAW seamlessly. XY pad interface intuitive for timbral exploration - drag around = hear timbral changes in real-time. Very responsive (<5ms latency). Minor learning curve: monophonic input limitation (polyphonic audio causes pitch tracking errors), preset selection requires experimentation. Overall highly usable.",
+      "evidence": "VST installation, Ableton Live integration tests, XY pad exploration"
+    },
+    "generation_speed": {
+      "score": 5,
+      "confidence": 5,
+      "rationale": "Real-time transformation (<5ms latency) - no waiting for generation. Instant feedback: move XY pad → hear timbral change immediately. Fastest 'generation' of all systems (though technically transformation, not generation). Iteration speed unmatched.",
+      "evidence": "Latency measurements in DAW, comparison to batch systems (MusicGen, Riffusion, Magenta)"
+    },
+    "audio_quality": {
+      "score": 4,
+      "confidence": 4,
+      "rationale": "DDSP synthesis produces clean harmonic content with realistic transients (via noise generator). Bass→brass transformations convincing. High sample rate (48kHz) and 32-bit float VST output = professional quality. Minor artifacts when input pitch tracking fails (e.g., polyphonic input) or extreme XY pad positions (very high brightness can introduce aliasing). Overall very high quality.",
+      "evidence": "Transformed audio analysis, comparison to original bass recordings"
+    },
+    "semantic_alignment": {
+      "score": 4,
+      "confidence": 3,
+      "rationale": "Preset names semantically meaningful (e.g., 'Bass→Brass' produces brass-like timbre from bass input). Transformation coherent with preset description. XY pad movements interpretable (up = more breath, right = brighter). But 'alignment' concept differs from generative systems (no text prompts) - preset selection + XY pad = control mechanism. Strong alignment between control input and sonic output.",
+      "evidence": "Preset testing (Bass→Brass, Bass→Synth), XY pad mapping exploration"
+    },
+    "steerability": {
+      "score": 4,
+      "confidence": 4,
+      "rationale": "XY pad provides continuous, real-time timbral control - highly steerable during performance. Preset selection offers categorical timbral shifts (bass → brass vs. bass → synth). Mix dry/wet parameter allows nuanced blending. Pitch correction enables scale quantization. Control granularity excellent. Not 5/5 because presets are fixed (cannot train custom models without Neutone SDK development).",
+      "evidence": "XY pad manipulation tests, parameter exploration, preset comparison"
+    },
+    "workflow_impact": {
+      "score": 4,
+      "confidence": 3,
+      "rationale": "Real-time operation integrates seamlessly into creative workflow - play bass, tweak XY pad, record output. No waiting (vs. MusicGen 140s, Riffusion 35s). Feels like playing instrument, not operating software. Minor friction: monophonic limitation requires careful input preparation (e.g., bass line must be isolated, no chords). Preliminary tests suggest positive workflow impact.",
+      "evidence": "Workflow mapping, comparison to batch systems, creative session simulation"
+    },
+    "daw_integration": {
+      "score": 3,
+      "confidence": 4,
+      "rationale": "VST plugin integrates into any DAW (Ableton, FL Studio, Logic). Audio routed via standard VST track insert. Inherits DAW tempo/key/routing. No metadata issues (unlike MusicGen/Riffusion). But DDSP-VST doesn't provide MIDI export (audio transformation only), and recorded output is 'baked' audio (cannot re-edit transformation post-recording without re-processing). Good integration but not perfect.",
+      "evidence": "Ableton Live VST routing, tempo sync tests, recorded audio analysis"
+    },
+    "creative_adaptability": {
+      "score": 4,
+      "confidence": 3,
+      "rationale": "Real-time transformation paradigm enables exploratory creativity - XY pad manipulation feels playful and responsive. Presets provide starting points for timbral exploration. Transformation approach (vs. generation) means creative control retained (user composes input, DDSP transforms). Preliminary tests suggest high adaptability for sound design tasks. Not 5/5 because transformation paradigm requires quality input (cannot 'generate from nothing' like MusicGen).",
+      "evidence": "Creative exploration tests, XY pad improvisation, preset experimentation"
+    }
+  },
+  
+  "known_limitations": [
+    "Monophonic input only - polyphonic audio (chords, multiple instruments) causes pitch tracking errors and artifacts",
+    "Transformation paradigm requires quality input audio - cannot generate from text/scratch like generative systems",
+    "Preset-based models - cannot train custom transformations without Neutone SDK development skills",
+    "CREPE pitch tracking struggles with extreme registers (very low bass <40 Hz, very high notes >5 kHz)",
+    "Real-time CPU processing - high CPU usage on older systems (requires modern CPU for low latency)",
+    "No MIDI export - output is audio only (cannot extract pitch/timing as MIDI like some systems)",
+    "Preset library limited (~20 factory presets) - community models expanding but selection narrower than Magenta/MusicGen"
+  ],
+  
+  "known_strengths": [
+    "Real-time operation - <5ms latency, instant feedback, suitable for live performance",
+    "Instrument-like interaction - XY pad paradigm feels playful and responsive, not like 'operating software'",
+    "High audio quality - DDSP harmonic synthesis clean and realistic, professional VST output (32-bit float)",
+    "Seamless DAW integration - VST3 plugin works in any DAW, inherits tempo/routing",
+    "Lightweight CPU processing - no GPU required, runs on modern laptops",
+    "Strong timbral control - XY pad + presets enable nuanced sound design exploration",
+    "Transformation preserves timing - input rhythm/groove preserved in output (vs. generative systems that may alter timing)",
+    "Positive user experience - preliminary tests feel creative and fun, not frustrating like Magenta/MusicGen"
+  ],
+  
+  "evidence_sources": [
+    "Academic Paper: Engel, J., et al. (2020). DDSP: Differentiable Digital Signal Processing. ICLR.",
+    "Code Repository: Qosmo Inc. (2024). Neutone SDK Repository. GitHub.",
+    "VST Manual: Neutone Documentation. https://neutone.space/docs",
+    "VST Plugin: DDSP-VST 1.2.0 (VST3), installed in Ableton Live 11.3.4"
+  ],
+  
+  "next_steps": {
+    "phase_1_focus": "Conduct 7 creative sessions transforming bass lines into brass/synth textures for chorus intensity, assess real-time workflow integration and creative adaptability",
+    "hypotheses_to_test": [
+      "Real-time operation will meaningfully improve workflow vs. batch systems (MusicGen, Riffusion, Magenta)",
+      "XY pad interaction will elicit flow state / positive emotional experience (vs. prompt frustration)",
+      "Transformation paradigm will feel more creatively controllable than generative prompt-based systems",
+      "DDSP audio quality will be highest of all systems (DDSP synthesis vs. spectrogram/autoregressive artifacts)"
+    ],
+    "parameter_grid_planned": "presets (Bass→Brass, Bass→Synth, Bass→Voice) × XY pad positions (corners + center = 9 positions) × mix dry/wet (0%, 50%, 100%) = 81 combinations",
+    "documentation_strategy": "152-widget session log, track emotional state (hypothesis: positive flow experience), compare real-time vs. batch workflow impact"
+  },
+  
+  "reflexive_notes": {
+    "evaluator_positionality": "As sound designer interested in timbral exploration, DDSP-VST's XY pad paradigm immediately appealing. Real-time feedback aligns with my preference for interactive tools (vs. waiting for MusicGen). Funk production needs require both generation (MusicGen/Riffusion) AND transformation (DDSP) - expecting DDSP to complement generative systems.",
+    "methodological_concerns": "DDSP-VST is transformation system, not generative - 'Semantic Alignment' and 'Generation Speed' criteria need reinterpretation. Is 'real-time transformation' comparable to 'batch generation'? Need to clarify scoring rubric for transformation paradigm vs. generation paradigm.",
+    "questions_raised": [
+      "Will real-time workflow (<5ms) produce flow state / positive emotional experience?",
+      "How to balance transformation paradigm (requires input) vs. generation paradigm (creates from scratch) in scoring?",
+      "Is monophonic limitation critical flaw (score penalty) or acceptable tradeoff for high-quality transformation?"
+    ]
+  }
+}

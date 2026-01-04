@@ -1,0 +1,59 @@
+{
+  "export_date": "2025-10-11T12:26:23.353157",
+  "framework_version": "0.1.0",
+  "data": {
+    "metadata": {
+      "date": "2025-10-11",
+      "phase_type": "Content Generation",
+      "start_time": "",
+      "end_time": "",
+      "systems_involved": "",
+      "evaluator": "",
+      "project_context": ""
+    },
+    "pre_phase_state": {
+      "musical_goal": "",
+      "materials_available": "",
+      "creative_vision": "",
+      "expected_challenges": "",
+      "time_estimate": 1.0
+    },
+    "execution": {
+      "log": ""
+    },
+    "systems": {
+      "used": "",
+      "performance": ""
+    },
+    "efficiency": {
+      "time_planned": 0,
+      "time_actual": 0,
+      "breakdown": "",
+      "bottlenecks": "",
+      "rating": "Very efficient"
+    },
+    "outcomes": {
+      "goals_met": "Completely",
+      "quality": "Excellent",
+      "usable": "",
+      "surprises": "",
+      "next_phase_impact": ""
+    },
+    "criterion_connections": {
+      "connections": "",
+      "evidence": ""
+    },
+    "creative_experience": {
+      "flow_state": "Deep flow",
+      "satisfaction": 3,
+      "reflection": "",
+      "would_repeat": "Definitely"
+    },
+    "generation": {
+      "approach": "Prompt-based",
+      "prompts": "",
+      "iterations": 1,
+      "output": ""
+    }
+  }
+}

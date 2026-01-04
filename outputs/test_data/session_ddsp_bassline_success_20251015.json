@@ -1,0 +1,229 @@
+{
+  "template_metadata": {
+    "template_type": "session_notebook",
+    "template_version": "1.0.0",
+    "created_at": "2025-10-15T10:30:00Z",
+    "modified_at": "2025-10-15T11:45:00Z",
+    "exported_at": "2025-10-15T11:50:00Z"
+  },
+  "core_session": {
+    "metadata": {
+      "session_id": "session_ddsp_20251015_103000",
+      "date": "2025-10-15",
+      "start_time": "10:30",
+      "end_time": "11:45",
+      "system_name": "DDSP (Differentiable Digital Signal Processing)",
+      "system_version": "v3.2.1",
+      "interface_type": "Web Interface",
+      "hardware": "NVIDIA RTX 4090, 64GB RAM, Intel i9-13900K",
+      "evaluator": "Evaluator_Alpha",
+      "session_number": 3,
+      "session_type": "Standard Session"
+    },
+    "creative_context": {
+      "musical_element": "Bassline",
+      "genre": "Funk",
+      "tempo": "110 BPM",
+      "key": "E minor",
+      "intended_use": "Foundation",
+      "references": "Herbie Hancock - Chameleon, Vulfpeck grooves"
+    },
+    "generation_attempts": [
+      {
+        "attempt_number": 1,
+        "time": "10:35",
+        "input_type": "Audio file",
+        "input_content": "Uploaded reference funk bassline (16 bars, original composition)",
+        "parameters": "Duration: 30s, Model: bass_v3, Temperature: 0.7",
+        "generation_time": "12 seconds for 30s output",
+        "output_description": "Clean bass tone but lost the funk groove, sounds more like smooth jazz. Technically solid but musically off-target.",
+        "match_to_intent": "Partial",
+        "quality_rating": 3,
+        "usability": "Not usable",
+        "issues": [
+          "Wrong tempo/key/style"
+        ],
+        "artifacts": [
+          "None"
+        ],
+        "notable_observations": "System interpreted the funky syncopation as errors and smoothed it out - interesting but problematic"
+      },
+      {
+        "attempt_number": 2,
+        "time": "10:42",
+        "input_type": "Audio file",
+        "input_content": "Same reference but with more pronounced rhythmic emphasis (compressed dynamics)",
+        "parameters": "Duration: 30s, Model: bass_v3, Temperature: 0.9, Added rhythmic conditioning",
+        "generation_time": "14 seconds for 30s output",
+        "output_description": "Much better! Groove is preserved, syncopation intact. Tone is punchy and sits well. Minor timing inconsistencies in bars 3-4.",
+        "match_to_intent": "Close",
+        "quality_rating": 4,
+        "usability": "Usable with processing",
+        "issues": [
+          "Timing/rhythm inconsistencies"
+        ],
+        "artifacts": [
+          "Timing/rhythm inconsistencies"
+        ],
+        "notable_observations": "Higher temperature + rhythmic conditioning seems to preserve funk better"
+      },
+      {
+        "attempt_number": 3,
+        "time": "10:55",
+        "input_type": "Audio file",
+        "input_content": "Looped 4-bar section of attempt #2 to reinforce the groove",
+        "parameters": "Duration: 30s, Model: bass_v3, Temperature: 0.85",
+        "generation_time": "13 seconds for 30s output",
+        "output_description": "Perfect! Groove locked in, timing tight, tone consistent. System successfully extended the 4-bar loop into natural 8-bar phrases with subtle variation.",
+        "match_to_intent": "Perfect",
+        "quality_rating": 5,
+        "usability": "Usable as-is",
+        "issues": [
+          "None"
+        ],
+        "artifacts": [
+          "None"
+        ],
+        "notable_observations": "BREAKTHROUGH: Short loop input yields better rhythmic consistency than full-length examples. This is counter-intuitive and worth documenting."
+      }
+    ],
+    "prompt_refinement": {
+      "initial": "Audio file: full 16-bar funk bassline reference",
+      "final": "Audio file: 4-bar compressed/emphasized loop at temp 0.85",
+      "iterations": "Three attempts: (1) Full reference failed to preserve groove, (2) Added emphasis helped, (3) Short loop was optimal",
+      "responds_well": "Short rhythmic loops with dynamic emphasis, higher temperature (0.85-0.9) for groove preservation",
+      "struggles_with": "Long reference files with subtle syncopation - tends to smooth/average out the funk",
+      "unexpected": "Counter-intuitively better with SHORT loops than full examples - system extends patterns more faithfully",
+      "effective_keywords": "N/A (audio-to-audio system)",
+      "ineffective_keywords": "N/A (audio-to-audio system)"
+    },
+    "post_processing": {
+      "separation": {
+        "needed": "N/A (single instrument)",
+        "tool": "",
+        "quality": ""
+      },
+      "eq": {
+        "applied": true,
+        "details": "Slight boost at 80Hz for weight, cut at 250Hz to reduce muddiness"
+      },
+      "compression": {
+        "applied": true,
+        "details": "4:1 ratio, light compression to even out dynamics"
+      },
+      "reverb": {
+        "applied": false,
+        "details": ""
+      },
+      "trimming": {
+        "applied": true,
+        "details": "Trimmed to exact loop points for seamless DAW integration"
+      },
+      "other": "",
+      "total_time": "8 minutes"
+    },
+    "daw_integration": {
+      "daw": "Ableton Live",
+      "format": "WAV",
+      "sample_rate": "48kHz, 24-bit",
+      "context": "Integrated with live drums and Rhodes keyboard in funk composition",
+      "issues": [
+        "None"
+      ],
+      "workarounds": "",
+      "ease": "Seamless",
+      "time": "5 minutes",
+      "result": "Fully integrated"
+    },
+    "reflections": {
+      "what_worked": "The short loop strategy was a game-changer. Once I figured that out, DDSP nailed the funk groove perfectly. Audio quality is excellent.",
+      "frustrations": "Initial attempt was disappointing - system smoothed out the groove I was trying to capture. Took trial and error to find the right input strategy.",
+      "discoveries": "DDSP works better with SHORT, EMPHASIZED loops than with full-length examples. This is not documented anywhere and seems counter-intuitive.",
+      "comparisons": "Better audio quality than MusicGen, more controllable than Riffusion for specific genres. Parameter control is excellent once you understand the input requirements.",
+      "emotional_state": "Started frustrated, ended excited. The breakthrough moment in attempt 3 was satisfying."
+    },
+    "session_stats": {
+      "total_attempts": 3,
+      "usable_outputs": 1,
+      "generation_time": "39 seconds total",
+      "processing_time": "8 minutes",
+      "integration_time": "5 minutes",
+      "productivity": "High",
+      "efficiency": "Faster than traditional"
+    }
+  },
+  "optional_incident": {
+    "logged": true,
+    "metadata": {
+      "date": "2025-10-15",
+      "time": "10:55"
+    },
+    "classification": {
+      "type": "Workflow Discovery",
+      "severity": "Major"
+    },
+    "description": {
+      "what_happened": "Discovered that DDSP generates more faithful rhythmic output from SHORT loops (4 bars) than from LONG references (16 bars)",
+      "goal": "Generate a funk bassline that preserves syncopated groove from reference audio",
+      "expected": "Longer, more complete references would give better results",
+      "actual": "Short 4-bar loop yielded perfect results while 16-bar reference smoothed out the groove",
+      "why_notable": "Completely counter-intuitive finding that contradicts typical ML assumptions. Changes optimal workflow significantly."
+    },
+    "context": {
+      "prior_actions": "Attempt 1 failed with full reference, Attempt 2 was better with rhythmic emphasis",
+      "system_state": "DDSP v3.2.1, bass_v3 model, temp 0.85, Web interface responsive"
+    },
+    "autoethnography": {
+      "time_of_day": "Morning (6am-12pm)",
+      "fatigue_level": "Fresh/Alert",
+      "emotional_state": "Excited",
+      "external_pressures": "None - dedicated evaluation session"
+    },
+    "analysis": {
+      "significance": "This finding fundamentally changes how to use DDSP for rhythmic content. Could apply to other audio-to-audio systems.",
+      "affected_criteria": [
+        "5. Parameter Control",
+        "6. Content Generation Control",
+        "8. Creative Workflow Fit"
+      ],
+      "theoretical_insights": "May relate to how diffusion models handle temporal coherence - shorter contexts might force more literal pattern repetition vs. averaging",
+      "workflow_impact": "Need to pre-process references into SHORT loops before feeding to DDSP for best rhythmic results"
+    },
+    "root_cause": {
+      "probable_causes": [
+        "Model limitation",
+        "Training data bias"
+      ],
+      "evidence": "Reproducible across 3 attempts. Hypothesis: Model trained on short loops, or temporal attention window favors shorter inputs",
+      "alternatives": "Could also be temperature interaction, but tests suggest input length is primary factor"
+    },
+    "learnings": {
+      "system": "DDSP favors SHORT rhythmic loops over long examples - likely due to temporal attention mechanisms",
+      "evaluation": "Need to test input length systematically as a variable, not just content/parameters",
+      "practice": "My initial assumption (more data = better) was wrong for this use case. Trust the iterative process.",
+      "approach_changes": "Will start with short loops first for any rhythmic generation task",
+      "recommendations": "DDSP documentation should highlight optimal input length for different use cases"
+    },
+    "reproducibility": {
+      "level": "Consistently reproducible",
+      "steps": "1) Use 4-bar loop vs. 16-bar reference, 2) Temp 0.85-0.9, 3) Bass_v3 model",
+      "conditions": "Consistent across funk, but should test other rhythmic genres",
+      "attempts": 3,
+      "success_rate": "3/3 (100%)"
+    },
+    "documentation": {
+      "evidence_types": [
+        "Audio recordings",
+        "Generated output files",
+        "Screenshots"
+      ],
+      "location": "~/evaluation/ddsp_session_20251015/",
+      "related": "Links to Template 02 Criterion 6 (Content Generation Control)",
+      "follow_up": "Test this pattern with other rhythmic genres (hiphop, latin, etc.)"
+    }
+  },
+  "optional_workflow_phase": {
+    "enabled": false
+  },
+  "custom_fields": {}
+}

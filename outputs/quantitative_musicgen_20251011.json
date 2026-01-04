@@ -1,0 +1,49 @@
+{
+  "export_date": "2025-10-11T14:30:00.000000",
+  "framework_version": "1.0.0",
+  "template_type": "quantitative_assessment",
+  "data": {
+    "system_info": {
+      "system": "MusicGen",
+      "period": "2025-10-01 to 2025-10-10",
+      "total_sessions": 5,
+      "evaluator": "Research Evaluator",
+      "date": "2025-10-10"
+    },
+    "criteria_scores": {
+      "usability": 4,
+      "generation_speed": 5,
+      "audio_quality": 4,
+      "stylistic_accuracy": 4,
+      "parameter_control": 3,
+      "content_generation_control": 3,
+      "daw_integration": 2,
+      "creative_workflow": 4
+    },
+    "criteria_evidence": {
+      "usability": "Intuitive web interface with clear prompting system. Minimal learning curve.",
+      "generation_speed": "Generates 15-second outputs in approximately 45 seconds consistently. Fast iteration.",
+      "audio_quality": "Professional-quality audio with minor compression artifacts at high frequencies.",
+      "stylistic_accuracy": "Successfully captures genre characteristics across diverse styles tested.",
+      "parameter_control": "Limited direct control over musical parameters. Relies on text descriptions.",
+      "content_generation_control": "Generates full mixes rather than individual stems. Difficult to isolate elements.",
+      "daw_integration": "File export only. No plugin or real-time integration available.",
+      "creative_workflow": "Fast generation enables rapid ideation and iteration. Supports creative flow."
+    },
+    "overall_assessment": {
+      "strengths": [
+        "Exceptional generation speed enables rapid iteration",
+        "Good stylistic accuracy across multiple genres",
+        "Intuitive interface requires minimal training",
+        "High audio quality suitable for professional use"
+      ],
+      "weaknesses": [
+        "Limited DAW integration capabilities",
+        "Generates full mixes rather than controllable stems",
+        "Parameter control could be more granular",
+        "Text-only interface limits precise control"
+      ],
+      "recommendations": "Best suited for rapid ideation, inspiration gathering, and initial concept development. Excellent for composers needing quick musical sketches across diverse genres."
+    }
+  }
+}

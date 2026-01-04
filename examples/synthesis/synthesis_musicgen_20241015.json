@@ -1,0 +1,671 @@
+{
+  "meta": {
+    "synthesis_id": "SYNTHESIS_MUSICGEN_001",
+    "system_name": "MusicGen",
+    "evaluator_id": "Evaluator_001",
+    "synthesis_date": "2024-10-15",
+    "phase": "Phase 2 - Evidence Synthesis",
+    "total_sessions_evaluated": 7,
+    "session_date_range": "2024-04-20 to 2024-06-30",
+    "total_session_hours": 10.5,
+    "evidence_extraction_method": "Keyword search across 7 session logs (152-widget structure), manual review of observations/incidents/reflexive_synthesis fields",
+    "confidence_overall": 4
+  },
+  
+  "sessions_synthesized": [
+    {
+      "session_id": "SESSION_MG_001",
+      "date": "2024-04-20",
+      "focus": "Initial exploration - drum patterns",
+      "duration_minutes": 75
+    },
+    {
+      "session_id": "SESSION_MG_002",
+      "date": "2024-05-05",
+      "focus": "Synth lead generation for chorus",
+      "duration_minutes": 90
+    },
+    {
+      "session_id": "SESSION_MG_003",
+      "date": "2024-06-12",
+      "focus": "Funky bassline for verse (CRITICAL INCIDENT session)",
+      "duration_minutes": 90
+    },
+    {
+      "session_id": "SESSION_MG_004",
+      "date": "2024-06-15",
+      "focus": "Verse drum pattern",
+      "duration_minutes": 60
+    },
+    {
+      "session_id": "SESSION_MG_005",
+      "date": "2024-06-20",
+      "focus": "Harmonic pad textures",
+      "duration_minutes": 90
+    },
+    {
+      "session_id": "SESSION_MG_006",
+      "date": "2024-06-25",
+      "focus": "Guitar funk rhythm",
+      "duration_minutes": 105
+    },
+    {
+      "session_id": "SESSION_MG_007",
+      "date": "2024-06-30",
+      "focus": "Percussion fills and transitions",
+      "duration_minutes": 90
+    }
+  ],
+  
+  "criterion_scores": {
+    "usability": {
+      "score": 3,
+      "confidence": 4,
+      "evidence_count": 18,
+      "rationale": "MusicGen's CLI-based interface is accessible to technically proficient users but presents barriers for non-programmers. Sessions consistently showed successful installation and execution (Python environment, CUDA dependencies managed without major issues). However, usability is hampered by prompt engineering challenges - achieving desired outputs requires iterative refinement that feels like 'fighting the system' rather than collaborating with it. Session 03 exemplifies this: 5 generation attempts over 75 minutes to produce a single usable bassline, with categorical errors ('bass line' → drums) requiring strategic prompt rephrasing. The lack of real-time feedback during batch generation exacerbates trial-and-error cycles. Score balances technical accessibility (CLI, Python API, web demo options) against creative usability friction (opaque prompt-to-output relationship, no undo/redo, parameter tweaking minimally impactful).",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_001",
+          "context": "Initial setup and installation",
+          "excerpt": "Installation via pip straightforward - torch, audiocraft installed without issues on RTX 4090 system. CUDA 12.1 compatibility confirmed. First generation successful within 15 minutes of setup.",
+          "supports_score": "Positive - technical setup accessible"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Bassline generation attempts",
+          "excerpt": "Attempt 1 (prompt: 'funky bass line') generated drum track instead of bassline. CRITICAL INCIDENT: Categorical error - completely wrong instrument family. How does 'funky bass line' generate drums? Is 'bass' being interpreted as 'bass drum'?",
+          "supports_score": "Negative - semantic alignment failures reduce usability"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Prompt refinement strategy",
+          "excerpt": "Attempt 3: Changed prompt to 'electric bass guitar playing funky rhythm' - finally got bass sound, but mixed with drums and guitar. Specifying instrument explicitly helped, but system generated full arrangement instead of single instrument.",
+          "supports_score": "Negative - requires very specific prompt engineering"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Parameter effectiveness",
+          "excerpt": "Parameter tweaking (temperature, top-k, cfg_coef across attempts) did not resolve semantic alignment issues. Text prompt phrasing is more impactful than numerical parameters.",
+          "supports_score": "Negative - limited parameter controllability"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Synth lead generation",
+          "excerpt": "CLI workflow feels cumbersome - specify all parameters upfront, wait 2-3 minutes, evaluate output, repeat. No ability to tweak mid-generation or preview results incrementally. This batch paradigm disrupts creative flow compared to real-time VST interaction.",
+          "supports_score": "Negative - batch processing reduces interactivity"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Web demo vs. CLI",
+          "excerpt": "Tested Gradio web demo for harmonic pad generation. Simpler interface (text box + sliders) more accessible than CLI, but generation queue times unpredictable (1-5 minutes depending on server load). CLI local generation more reliable for serious work.",
+          "supports_score": "Mixed - web demo accessible but unreliable, CLI reliable but technical"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "Multi-variant generation",
+          "excerpt": "Generated 4 variants of percussion fill with same prompt, different random seeds. Easy to batch process via Python loop, but evaluating 4 outputs sequentially feels tedious. Wish there were A/B comparison interface built into system.",
+          "supports_score": "Mixed - batch processing powerful but curation labor-intensive"
+        },
+        {
+          "session": "SESSION_MG_004",
+          "context": "Drums - successful use case",
+          "excerpt": "Drum generation is MusicGen's strength - 'funk drum groove, syncopated backbeat' produced immediately usable pattern on first attempt. When the system 'gets it', usability is excellent. The problem is unpredictability.",
+          "supports_score": "Positive - usability high when semantic alignment succeeds"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Learning curve reflection",
+          "excerpt": "By Session 06, I've developed prompt templates that reliably work (e.g., '[instrument] [style descriptor], [timbral quality]'). But it took 6 sessions and ~8 hours to learn what works. Steep learning curve.",
+          "supports_score": "Negative - requires substantial time investment to master"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "Documentation quality",
+          "excerpt": "GitHub README and technical paper very thorough for understanding architecture and parameters. But limited guidance on effective prompt engineering - most learning via trial-and-error.",
+          "supports_score": "Mixed - technical docs strong, creative workflow guidance weak"
+        }
+      ],
+      
+      "rubric_mapping": "Score 3 ('Moderate Usability - Functional but Cumbersome') aligns with: 'Functional for technically experienced users but presents barriers (installation complexity, parameter tuning required, limited guidance). Usable but not seamless.' MusicGen is functional - all 7 sessions successfully generated outputs - but the path from prompt to usable result is often circuitous, requiring multiple attempts and strategic prompt refinement. The CLI interface is accessible to me (computer science background) but would likely deter musicians without coding experience. This places MusicGen squarely in the 'moderate' usability tier."
+    },
+    
+    "generation_speed": {
+      "score": 2,
+      "confidence": 5,
+      "evidence_count": 22,
+      "rationale": "MusicGen's generation speed is consistently slow, creating workflow friction that disrupts iterative creative processes. Using the 'large' model (3.3B parameters) on an RTX 4090 GPU, 30-second audio generations require 135-145 seconds (~2.3 minutes) of processing time. This 4.5-5x slowdown (real-time factor: 0.2x) is tolerable for single generations but becomes prohibitive during iterative refinement - sessions requiring 5-8 generation attempts (common when prompt engineering) spend 12-20 minutes on pure generation overhead. The 'medium' (1.5B) and 'small' (300M) models offer modest speedups (1.5-2x faster) but with noticeable quality degradation. Speed issues are compounded by MusicGen's lack of streaming/progressive generation - outputs must complete fully before evaluation, preventing early abandonment of misaligned generations. Compared to systems like Riffusion (real-time factor ~0.8-1.0x on same hardware) or DDSP-VST (true real-time transformation), MusicGen's batch processing paradigm feels sluggish. Score reflects speed as a consistent pain point across all sessions.",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_003",
+          "context": "Bassline generation timing",
+          "excerpt": "Attempt 1: generation_time_seconds = 142 for 30s output. ~2.4 minutes waiting. Attempt 2: 138 seconds. Attempt 3: 145 seconds. Attempt 4: 140 seconds. Attempt 5: 135 seconds. Average: 140 seconds for 30s = 4.67x realtime.",
+          "supports_score": "Negative - consistently slow across attempts"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Time breakdown analysis",
+          "excerpt": "Session time breakdown: generation_attempts 60 minutes, import_and_alignment 8 minutes, post_processing 12 minutes. 75% of session time spent generating/waiting, only 25% on creative work.",
+          "supports_score": "Negative - generation overhead dominates session time"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Synth lead iterations",
+          "excerpt": "Attempting to refine synth lead timbre required 8 generations with parameter tweaks. 8 × 2.5 minutes = 20 minutes of waiting. By generation 6, I was browsing other windows during processing - complete loss of creative flow state.",
+          "supports_score": "Negative - slow iterations disrupt flow"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Model size comparison",
+          "excerpt": "Tested 'medium' model (1.5B params) for harmonic pads. Generation time: 85 seconds for 30s output (~1.5x faster than 'large'). But audio quality noticeably worse - more EnCodec artifacts, less coherent harmony. Not worth the speedup.",
+          "supports_score": "Negative - faster models sacrifice quality"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "First impressions",
+          "excerpt": "Coming from real-time VST plugins, waiting 2+ minutes per generation feels painfully slow. This isn't exploratory 'jamming' - it's batch processing with mandatory coffee breaks.",
+          "supports_score": "Negative - speed incompatible with real-time creative workflow"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "Batch generation strategy",
+          "excerpt": "Generated 6 percussion fill variants overnight via Python script (unattended batch mode). Woke up to 6 options to choose from. This 'generate while sleeping' strategy works for non-urgent tasks, but can't be used during active composition.",
+          "supports_score": "Mixed - batch mode viable for async work, not interactive sessions"
+        },
+        {
+          "session": "SESSION_MG_004",
+          "context": "Comparing to Riffusion speed",
+          "excerpt": "For comparison: Riffusion generates 30s audio in ~35 seconds on same RTX 4090. MusicGen is 4x slower. If Riffusion can do real-time-ish generation, why can't MusicGen optimize inference?",
+          "supports_score": "Negative - slower than comparable text-to-audio systems"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Long-duration generation",
+          "excerpt": "Attempted 45-second guitar rhythm generation. Processing time: 6 minutes 20 seconds. Absurd wait time, and the output had coherence issues in the final 10 seconds anyway. Sticking to 30s max from now on.",
+          "supports_score": "Negative - speed degrades further for longer outputs"
+        }
+      ],
+      
+      "rubric_mapping": "Score 2 ('Slow - Disruptive to Workflow') aligns with: 'Generation takes multiple minutes per iteration. Incompatible with rapid experimentation. Disrupts creative flow.' The 140-second average per 30s output clearly exceeds 'acceptable' latency for interactive creative work. While MusicGen is faster than some early neural audio systems (e.g., WaveNet's hours-per-second generation), it lags behind modern real-time-capable diffusion models and is far slower than transformative systems like DDSP. The speed bottleneck is architectural - autoregressive token-by-token generation is inherently sequential and difficult to parallelize."
+    },
+    
+    "audio_quality": {
+      "score": 3,
+      "confidence": 4,
+      "evidence_count": 25,
+      "rationale": "MusicGen's audio quality is timbral-dependent: electronic textures (synth bass, pads, electronic drums) exhibit minimal EnCodec artifacts and are generally production-ready, while acoustic instruments (bass guitar, acoustic drums, strings) display noticeable compression artifacts (metallic timbre, quantization noise in attack transients, smearing of high-frequency details). This aligns with the hypothesis that neural codecs trained on diverse datasets perform better on sounds well-represented in training data. The EnCodec tokenization (4 parallel codebooks, 32kHz native sample rate) introduces perceptual artifacts that are especially audible during sustained tones and resonant decays - e.g., bass guitar sustain in Session 03 had a 'metallic ring', synth pad decays in Session 05 were clean. Upsampling to 48kHz helps with DAW integration but does not remove inherent codec artifacts. Quality is sufficient for ideation and sketching but often requires post-processing (EQ to mask artifacts, compression to even out dynamics) before production use. Score reflects 'acceptable but not professional-grade' assessment.",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_003",
+          "context": "Synth bass vs. bass guitar quality",
+          "excerpt": "Attempt 5 (bass synth): 'Minimal EnCodec issues with synth tones - smooth sustain, clean attack. This aligns with Phase 0 hypothesis that MusicGen handles electronic timbres better than acoustic.' Attempt 3 (bass guitar): 'Moderate EnCodec artifacts audible in bass sustain (slight metallic ring).'",
+          "supports_score": "Mixed - quality varies by timbre"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "Drum quality assessment",
+          "excerpt": "Generated drums are punchy and clean - kick has good sub-bass weight, snare has crisp attack. No obvious compression artifacts. Drum samples sound professional-grade, comparable to sample library quality.",
+          "supports_score": "Positive - drums consistently high quality"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Synth lead artifacts",
+          "excerpt": "Synth lead has slight 'digital' quality - not warm analog character. But artifacts are subtle - only noticeable in isolated solo listening. In full mix context, lead sits fine. EnCodec artifacts blend into electronic aesthetic.",
+          "supports_score": "Positive - electronic timbres mask codec limitations"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Harmonic pad sustain",
+          "excerpt": "Pad chord sustains have smooth decay, no audible quantization steps. High-quality harmonic generation. However, stereo image feels narrow - not the wide spatial spread of professional pad libraries.",
+          "supports_score": "Mixed - good harmonic quality, limited spatialization"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Guitar acoustic instrument challenges",
+          "excerpt": "Funk guitar rhythm: Attack transients are smeared, lacks the percussive 'chick' of muted strums. Sustain has metallic overtones that don't sound like real guitar. This is unusable without heavy post-processing (EQ cuts at 4-6 kHz to reduce harshness).",
+          "supports_score": "Negative - acoustic instruments have pronounced artifacts"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "Percussion fills quality",
+          "excerpt": "Percussion elements (shakers, tambourine, cowbell) sound synthetic but acceptable. No single element is 'realistic', but in funk mix context, they contribute rhythmic energy. Quality is 'good enough for purpose'.",
+          "supports_score": "Positive - adequate quality for musical function"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Comparing to commercial sample libraries",
+          "excerpt": "A/B comparison: MusicGen synth lead vs. Serum VST preset. MusicGen has less timbral richness (fewer harmonic overtones), less dynamic modulation. But it's 70-80% of the way there - could be layered with VST sound to add complexity.",
+          "supports_score": "Mixed - below professional library quality but usable"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "32kHz sample rate limitation",
+          "excerpt": "Native 32kHz output means high-frequency content above ~15kHz is rolled off. For bass-heavy funk track, this is fine. But would be problematic for genres relying on 'air' and high-end detail (e.g., jazz, acoustic).",
+          "supports_score": "Mixed - sample rate acceptable for genre but limits versatility"
+        },
+        {
+          "session": "SESSION_MG_004",
+          "context": "Dynamic range observations",
+          "excerpt": "Drum pattern has limited dynamic variation - kick hits are consistently at same loudness, no velocity variations. Sounds programmed/quantized rather than human-performed. Need to add manual velocity edits in MIDI or use volume automation if converting to audio track.",
+          "supports_score": "Negative - lacks natural dynamics"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Post-processing necessity",
+          "excerpt": "Applied HPF at 60 Hz to remove sub-bass kick bleed. Boosted 80-120 Hz for bass punch. Glue compressor to even out synth dynamics. Without this processing, output is usable but not polished.",
+          "supports_score": "Negative - requires post-processing to be production-ready"
+        }
+      ],
+      
+      "rubric_mapping": "Score 3 ('Acceptable Quality - Usable with Limitations') aligns with: 'Audio quality sufficient for creative work but with noticeable artifacts (compression, aliasing, limited dynamic range). Requires post-processing for production use.' MusicGen outputs are functional - they occupy the right frequency ranges, have appropriate timbral characteristics for their intended roles - but they lack the sonic refinement of commercial sample libraries or recorded instruments. The EnCodec artifacts are the primary quality limiter. For ideation and composition sketching, quality is adequate. For final production, outputs require EQ, compression, and often layering with higher-quality sounds."
+    },
+    
+    "semantic_alignment": {
+      "score": 3,
+      "confidence": 3,
+      "evidence_count": 31,
+      "rationale": "MusicGen's semantic alignment is inconsistent and domain-dependent. The system demonstrates strong alignment for rhythm-centric prompts ('funk drum groove', 'syncopated backbeat') and electronic timbres ('synth bass', 'pad texture'), often producing outputs that match creative intent on first or second attempts. However, alignment degrades significantly for: (1) specific harmonic content ('Aeolian mode progression', 'jazz chord extensions'), (2) acoustic instrument timbres ('slap bass guitar', 'muted guitar strums'), (3) structural specifications ('8-bar loop', 'intro fill followed by verse groove'), and (4) negative constraints ('no drums', 'minimal reverb'). Session 03 documented a critical failure: the prompt 'funky bass line' generated a drum track (categorical error), requiring 5 attempts and escalating prompt specificity ('electric bass guitar playing funky rhythm') to achieve alignment. This suggests MusicGen's text encoder (T5) struggles with musical terminology disambiguation and the model has strong priors toward full-arrangement generation. Successful prompting requires learning domain-specific heuristics (e.g., 'bass synth' works better than 'bassline', timbral descriptors outperform musical descriptors). Score reflects: alignment succeeds often enough to be useful but fails unpredictably enough to require defensive prompt engineering strategies.",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_003",
+          "context": "Critical Incident - Categorical Error",
+          "excerpt": "CRITICAL INCIDENT: Prompt 'funky bass line' generated drum track instead of bassline. Categorical error - completely wrong instrument family. Attempt 2 ('syncopated and punchy bassline with strong emphasis on off-beats') also produced drums. Two consecutive failures with explicit 'bassline' terminology.",
+          "supports_score": "Negative - catastrophic semantic misalignment"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Prompt refinement resolution",
+          "excerpt": "Attempt 3: 'electric bass guitar playing funky rhythm' finally produced bass sound. But it was mixed with drums and guitar. Switching to 'bass synth' (Attempt 5) yielded cleaner isolated bass. Instrument specification via timbre (synth) more reliable than function (bassline).",
+          "supports_score": "Mixed - alignment achievable but requires trial-and-error"
+        },
+        {
+          "session": "SESSION_MG_004",
+          "context": "Drums - strong alignment",
+          "excerpt": "'Funk drum groove, syncopated backbeat, tight hi-hats' produced perfect output on first attempt. Kick-snare pattern was syncopated (not straight 4/4), hi-hats were crisp and rapid. Exactly what I wanted. When alignment works, it REALLY works.",
+          "supports_score": "Positive - strong alignment for rhythmic prompts"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Synth lead timbral alignment",
+          "excerpt": "'Bright analog synth lead, saw wave, filter sweep' produced a bright sawtooth lead with evolving filter cutoff. Timbral descriptors ('bright', 'saw wave') were interpreted correctly. MusicGen understands synthesis terminology.",
+          "supports_score": "Positive - good timbral interpretation"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Harmonic prompt failure",
+          "excerpt": "Prompt: 'Aeolian mode chord progression, minor 7th chords, slow tempo'. Output: major-sounding progression, not Aeolian. Unclear if system doesn't understand modes or if 'Aeolian' was overridden by other prompt terms. Harmonic specificity is weak.",
+          "supports_score": "Negative - poor alignment for music theory terminology"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Simplified harmonic prompt",
+          "excerpt": "Revised prompt: 'Dark minor chord pad, sustained notes'. Output: E minor-ish pad (correct tonal center). Simplifying from 'Aeolian mode' to 'dark minor' improved alignment. MusicGen responds better to affective descriptors ('dark') than technical terms ('Aeolian').",
+          "supports_score": "Mixed - alignment improves with simplified language"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Structural prompt limitations",
+          "excerpt": "Prompt: '8-bar guitar rhythm, 4 bars verse pattern then 4 bars chorus variation'. Output: continuous 30-second guitar without clear 8-bar structure or verse/chorus contrast. MusicGen ignores structural specifications.",
+          "supports_score": "Negative - no structural control"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Negative constraint failure",
+          "excerpt": "Prompt: 'solo bass guitar performance, funky slap bass, no drums'. Output: bass guitar with audible drums throughout. 'No drums' instruction completely ignored. MusicGen does not respect negative constraints.",
+          "supports_score": "Negative - negative prompting ineffective"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "Percussion specificity",
+          "excerpt": "'Shaker, tambourine, cowbell fills for funk breakdown' produced exactly those three percussion elements with rhythmic fills. High specificity for percussion instruments. Maybe because percussion is rhythmic (MusicGen's strength) rather than harmonic?",
+          "supports_score": "Positive - precise percussion alignment"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "Genre interpretation",
+          "excerpt": "'Funk' in prompts reliably produces syncopated rhythms and emphasis on beat 1 and 3. System understands genre-level characteristics. But 'jazz funk' vs. 'electronic funk' produce very different results - genre modifiers have unpredictable interactions.",
+          "supports_score": "Mixed - genre interpretation good but modifier interactions complex"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Tempo descriptor ambiguity",
+          "excerpt": "'Slow tempo' produces ~70 BPM, 'upbeat' produces ~130 BPM, 'moderate' produces ~100 BPM. Tempo descriptors work but are coarse-grained. Cannot specify '110 BPM' numerically, must rely on adjectives.",
+          "supports_score": "Mixed - tempo interpretable but imprecise"
+        }
+      ],
+      
+      "rubric_mapping": "Score 3 ('Moderate Alignment - Partial Interpretation') aligns with: 'System interprets some prompt elements correctly but misses nuance. Requires prompt refinement to achieve desired output. Success rate ~50-70%.' Across 7 sessions with 30+ total generation attempts, approximately 60% of prompts produced outputs aligned enough to use (with or without post-processing). The remaining 40% required prompt rephrasing or were discarded. This moderate success rate makes MusicGen useful but unreliable - users must always generate multiple variants and expect some misalignments."
+    },
+    
+    "steerability": {
+      "score": 3,
+      "confidence": 3,
+      "rationale": "MusicGen provides multiple control parameters (temperature, top_k, cfg_coef, duration, model size) but the relationship between parameter adjustments and musical outcomes is opaque and inconsistent. Temperature and top-k influence randomness/diversity as expected from language model theory, but practical musical impact is subtle - changing temperature from 0.8 to 1.2 may yield slightly different rhythmic patterns but does not fundamentally alter timbral or harmonic characteristics. Classifier-free guidance (cfg_coef) theoretically strengthens prompt adherence, but Session 03 showed that increasing cfg_coef from 3.0 to 7.0 did not resolve semantic alignment failures (bass prompt still produced drums). The most effective 'control' mechanism is prompt phrasing, not numerical parameters - but prompt engineering is more art than science, requiring trial-and-error rather than systematic manipulation. Model size selection offers a quality-speed tradeoff but does not provide additional creative control. Sessions 02 and 05 involved parameter grid searches (81 combinations of temp/top-k/cfg/duration) which revealed that parameter variations produce stochastic differences (different random seed-like outputs) rather than predictable steering toward specific musical characteristics. Score reflects: parameters exist and function, but their utility for creative steering is limited. Steerability is primarily prompt-driven, which is coarse-grained and unreliable.",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_003",
+          "context": "cfg_coef ineffectiveness",
+          "excerpt": "Attempt 2 (cfg_coef=5.0) still produced drums instead of bass. Attempt 4 (cfg_coef=7.0) also produced bass+drums mix, ignoring 'no drums' instruction. Raising cfg_coef did not improve prompt adherence for this failure mode.",
+          "supports_score": "Negative - parameters don't resolve semantic issues"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Temperature impact on synth lead",
+          "excerpt": "Generated synth lead at temp=0.8, 1.0, 1.2 (all other params constant). Temp=0.8: slightly more predictable melody, less rhythmic variation. Temp=1.2: more melodic surprises, occasional dissonances. Difference is audible but subtle - not a major creative control lever.",
+          "supports_score": "Mixed - temperature has measurable but subtle effect"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "top_k impact",
+          "excerpt": "top_k=50 vs top_k=250 for same prompt: top_k=50 outputs feel more 'generic/safe', top_k=250 outputs more 'creative/risky'. This aligns with theory (smaller top_k restricts token diversity). But musical impact is stochastic - can't steer toward specific harmonic or timbral outcomes via top_k alone.",
+          "supports_score": "Mixed - parameter behaves as expected but doesn't enable precise control"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Parameter grid search results",
+          "excerpt": "Generated 27 pad texture variants (temp × top-k × cfg_coef grid). Variation across outputs was substantial, but no clear pattern - e.g., high cfg_coef did NOT consistently produce 'darker' pads as hoped. Parameters add randomness more than directionality.",
+          "supports_score": "Negative - parameter sweeps produce scatter, not gradients"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Duration parameter",
+          "excerpt": "Duration parameter works reliably - specify 15s, get 15s; specify 45s, get 45s. But longer durations risk coherence loss (45s outputs often have structural drift in final 10s). Duration is a 'safe' parameter - does what it claims.",
+          "supports_score": "Positive - duration is predictable control"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Model size quality-speed tradeoff",
+          "excerpt": "Large model: best quality, 140s generation. Medium model: moderate quality, 85s generation. Small model: poor quality (weak harmonic coherence), 50s generation. Model size is a practical engineering choice, not a creative control.",
+          "supports_score": "Neutral - model size affects quality/speed, not musical direction"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "Prompt vs. parameter steering",
+          "excerpt": "After 7 sessions, I've learned: to change musical outcome, change the prompt (text). Parameters are for fine-tuning randomness/quality, not for steering genre/timbre/harmony. This inverts typical synthesizer/VST paradigm where knobs are primary control.",
+          "supports_score": "Negative - parameters are secondary to prompt engineering"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "Lack of real-time parameter interaction",
+          "excerpt": "In a VST, I'd tweak filter cutoff knob and hear changes in real-time. With MusicGen, I specify parameters, wait 2+ minutes, evaluate. No real-time feedback loop. This removes 'playful exploration' aspect of synthesis.",
+          "supports_score": "Negative - batch paradigm prevents interactive steering"
+        }
+      ],
+      
+      "rubric_mapping": "Score 3 ('Moderate Controllability - Coarse-Grained Parameters') aligns with: 'Some parameters available (style, length, intensity) but limited fine-grained control. Outcomes somewhat predictable but require experimentation.' MusicGen's parameters exist and have documented effects, but they do not enable the precise creative steering that practitioners expect from traditional synthesis tools. Steerability is 'moderate' because prompt engineering (a form of control) can eventually achieve desired outputs, but the process is iterative and uncertain rather than direct and deterministic."
+    },
+    
+    "workflow_impact": {
+      "score": 2,
+      "confidence": 4,
+      "rationale": "MusicGen's workflow impact is substantially disruptive, fundamentally altering the creative process from interactive composition to generate-then-curate batch processing. Across 7 sessions totaling 10.5 hours, ~70% of time was spent on generation attempts and output evaluation, with only ~30% on creative tasks (post-processing, DAW arrangement, musical decision-making). This inverts typical production workflows where tools serve creative intent rapidly; instead, MusicGen imposes mandatory waiting periods (2-3 minutes per generation) that fragment attention and disrupt flow states. Session 03 exemplified the workflow friction: 80 minutes to produce a single usable bassline, with 75 minutes on generation and only 20 minutes on post-processing/integration. The lack of real-time feedback forces a 'shot in the dark' approach - specify parameters, wait, evaluate, repeat - which feels more like troubleshooting than creating. Additionally, MusicGen outputs often require extensive post-processing (Demucs source separation when unwanted layering occurs, time-stretching to match project tempo, EQ/compression to mitigate EnCodec artifacts, manual editing to trim fade-ins/outs) which adds 10-30 minutes per output. The system also imposes non-negotiable hardware requirements (GPU with 16GB+ VRAM), limiting accessibility and portability (cannot work on laptop while traveling). Positive aspects include batch processing capability (generate multiple variants overnight) and melody conditioning (audio-to-audio continuation), but these do not offset the core workflow disruption. Score reflects: MusicGen can be integrated into production workflows, but requires substantial time accommodation and process restructuring.",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_003",
+          "context": "Time breakdown - generation dominance",
+          "excerpt": "Session time breakdown: generation_attempts 60 minutes, import_and_alignment 8 minutes, post_processing 12 minutes. 75% of session time spent generating/waiting, only 25% on creative work.",
+          "supports_score": "Negative - generation overhead dominates creative time"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Flow state disruption",
+          "excerpt": "By generation 6, I was browsing other windows during processing - complete loss of creative flow state. Can't maintain compositional train of thought across 2-3 minute interruptions.",
+          "supports_score": "Negative - waiting periods destroy flow"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Generate-then-curate paradigm",
+          "excerpt": "MusicGen forces 'generate then curate' workflow: make 5-10 variants, pick best 1-2, heavily edit those. This is opposite of 'real-time tweaking' workflow I use with VSTs. Feels like I'm sifting through samples rather than composing.",
+          "supports_score": "Negative - paradigm shift from composition to curation"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Post-processing necessity - Demucs",
+          "excerpt": "Attempt 3 produced bass+drums+guitar mix. Would require Demucs separation (20-30 minutes) to extract clean bass stem. This workflow tax is common when MusicGen generates unwanted layering.",
+          "supports_score": "Negative - post-processing adds substantial time overhead"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Tempo alignment labor",
+          "excerpt": "MusicGen output has no tempo metadata. Used Ableton's Warp feature to time-stretch to 110 BPM. Process takes 5-8 minutes per output (analyze transients, set warp markers, check alignment). Every single output requires this.",
+          "supports_score": "Negative - mandatory manual alignment for every output"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "Batch generation as workaround",
+          "excerpt": "Generated 6 percussion fill variants overnight via Python script. Woke up to 6 options. This asynchronous workflow minimizes disruption - generation happens during non-creative time. But only works for non-urgent tasks.",
+          "supports_score": "Mixed - batch mode reduces disruption if planned ahead"
+        },
+        {
+          "session": "SESSION_MG_004",
+          "context": "Comparison to real-time VSTs",
+          "excerpt": "With Battery or Addictive Drums (VST drum samplers), I'd audition/tweak drum patterns in <10 minutes with instant feedback. MusicGen took 60 minutes for comparable result. 6x time increase for drums, which should be MusicGen's strength!",
+          "supports_score": "Negative - slower than traditional tools even for system's strengths"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "Hardware dependency",
+          "excerpt": "MusicGen requires RTX 4090 (24GB VRAM) for comfortable large model use. Cannot run on laptop (RTX 3060 6GB). This limits when/where I can work - tied to desktop studio setup.",
+          "supports_score": "Negative - hardware constraints reduce flexibility"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Melody conditioning positive",
+          "excerpt": "Used audio continuation mode: fed MusicGen my existing bassline, prompted 'continue this melody with variation'. Output was coherent continuation. This is a workflow-positive feature - enables iterative development of ideas.",
+          "supports_score": "Positive - melody conditioning supports iterative workflow"
+        }
+      ],
+      
+      "rubric_mapping": "Score 2 ('High Disruption - Workflow Restructuring Required') aligns with: 'Tool requires substantial workflow adaptation. Long generation times or cumbersome export processes. Can be integrated but at significant time/effort cost.' MusicGen does not fit seamlessly into DAW-based production workflows - it requires restructuring sessions around batch generation cycles, budgeting 2x-3x time for MusicGen-generated elements vs. traditionally produced elements, and accepting that 'quick iterations' are impossible. The workflow impact is not prohibitive (Score 1 would be 'unusable'), but it is consistently disruptive across all sessions."
+    },
+    
+    "daw_integration": {
+      "score": 1,
+      "confidence": 5,
+      "evidence_count": 17,
+      "rationale": "MusicGen has minimal DAW integration capabilities, functioning solely as an external generation tool with no direct interoperability. The system does not provide plugin formats (VST/AU/AAX), lacks embedded metadata (tempo, key, time signature) in output files, and requires extensive manual labor for every import. Specific integration failures documented across sessions: (1) No tempo metadata - outputs must be manually warped/time-stretched to match project tempo (110 BPM for this study's funk track), with time-stretching introducing audible artifacts; (2) No key metadata - evaluator must auditory-analyze key center and transpose if misaligned (lucky E minor match in Session 03 was coincidence, not system feature); (3) Fade-ins/fade-outs baked into outputs - disrupt loop timing and require manual trimming; (4) No MIDI export - MusicGen is audio-only, cannot provide MIDI for further editing of melodic/harmonic content; (5) No session file import/export - cannot save MusicGen 'state' for later recall, every generation is ephemeral unless manually organized; (6) CLI-only interface - no GUI that could live alongside DAW; (7) Batch outputs lack organization - multi-variant generations produce sequentially numbered files with no metadata tags for comparison. The workflow is: generate in MusicGen → manually drag WAV into DAW → manually set tempo warp → manually trim fades → manually add to arrangement. This 5-8 minute import ritual occurs for EVERY output and is error-prone (forgetting to trim fade = loop mistiming). Score 1 reflects: MusicGen treats DAW as an afterthought, requiring practitioners to bridge the gap entirely through manual labor.",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_003",
+          "context": "Tempo alignment process",
+          "excerpt": "MusicGen output has no embedded tempo metadata. Used Ableton's 'Warp' feature to time-stretch to 110 BPM. Moderate time-stretching artifacts (slight pitch wobble). Process: analyze transients, set warp markers, check alignment. 5-8 minutes per output.",
+          "supports_score": "Negative - no tempo metadata, manual work required"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Fade-in disruption",
+          "excerpt": "Output has 0.5s fade-in that disrupts loop timing. Trimmed fade manually, set loop brace to 8 beats. If I forget this step, loop starts late and throws off rhythmic alignment.",
+          "supports_score": "Negative - baked-in fades are anti-DAW design"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Key alignment - lucky match",
+          "excerpt": "No key metadata. Auditory analysis: bass loop is in E minor (matches project key). Lucky alignment - no transposition needed. But what if output was in G minor? Would need pitch shifting, which degrades quality.",
+          "supports_score": "Negative - key alignment is luck-dependent"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "No VST plugin",
+          "excerpt": "Wish MusicGen existed as VST plugin inside Ableton. Could specify prompts, generate, audition results without leaving DAW. CLI-in-separate-terminal workflow feels disconnected.",
+          "supports_score": "Negative - no plugin format available"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Multi-variant organization challenge",
+          "excerpt": "Generated 8 synth lead variants. Files named: output_001.wav, output_002.wav, ..., output_008.wav. No metadata tags indicating which parameters were used. Had to manually rename files with prompt keywords for later reference.",
+          "supports_score": "Negative - poor file organization for batch outputs"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "No MIDI export",
+          "excerpt": "MusicGen generates audio only. Cannot export MIDI of the internal melodic/rhythmic structure. If I want to edit drum pattern (e.g., move snare hit), I must use audio editing (destructive) rather than MIDI note editing (non-destructive).",
+          "supports_score": "Negative - audio-only limits editability"
+        },
+        {
+          "session": "SESSION_MG_004",
+          "context": "Manual import ritual",
+          "excerpt": "Import process for EVERY MusicGen output: (1) Drag WAV to Ableton, (2) Create new audio track, (3) Enable Warp, (4) Set tempo to 110 BPM, (5) Trim fade-in, (6) Set loop markers. 5-8 minutes × 7 sessions × 3-5 outputs per session = hours of manual labor.",
+          "supports_score": "Negative - repetitive manual import for every output"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Comparing to Splice integration",
+          "excerpt": "For comparison: Splice sample library has Ableton integration - drag sample, auto-detect tempo, auto-warp, no fades. MusicGen could learn from commercial sample tools' DAW-first design.",
+          "supports_score": "Negative - lacks features standard in commercial tools"
+        }
+      ],
+      
+      "rubric_mapping": "Score 1 ('Poor Integration - Minimal Interoperability') aligns with: 'No plugin format, no metadata embedding, requires manual export and extensive preparation for DAW use. Functions as disconnected external tool.' MusicGen epitomizes poor DAW integration - every aspect of the generation-to-arrangement pipeline requires manual intervention. This is the study's lowest score for MusicGen, reflecting that DAW integration was not a design priority for the Meta AI team (research tool, not production tool)."
+    },
+    
+    "creative_adaptability": {
+      "score": 2,
+      "confidence": 3,
+      "rationale": "MusicGen demonstrates limited creative adaptability, often forcing practitioners to compromise original creative intentions due to system constraints. Session 03 exemplified this: the initial goal was a 'funky slap bass guitar' for verse, but after 4 failed generation attempts (categorical errors, unwanted layering), the evaluator adapted to a 'synth bass' output that was technically usable but aesthetically different from the envisioned sound. This pattern of 'forced adaptation' recurred across sessions - adjusting creative goals to align with system capabilities rather than system flexibly supporting diverse creative visions. MusicGen exhibits strong domain biases: it excels at electronic textures (synth bass, pads, electronic drums) and rhythmic elements (drum grooves, percussion), but struggles with acoustic instruments (bass guitar, acoustic drums, strings) and harmonic specificity (chord progressions, modal characteristics). This creates a creative constraint: practitioners must either (1) work within MusicGen's strengths (electronic funk, rhythm-focused composition), or (2) invest substantial time in prompt engineering and post-processing to coerce the system toward less-favored domains. The generate-then-curate workflow also limits adaptability - cannot iterate on a specific output (e.g., 'make this bassline slightly more syncopated'), only generate entirely new variants and hope one is closer to intent. Melody conditioning (audio continuation) provides some iterative capability but is itself unpredictable. Score reflects: MusicGen can be adapted TO diverse creative needs through persistent effort, but it does not actively ADAPT itself to meet those needs flexibly.",
+      
+      "evidence_excerpts": [
+        {
+          "session": "SESSION_MG_003",
+          "context": "Forced creative compromise",
+          "excerpt": "Had to abandon original creative vision (slap bass) and compromise to synth bass due to system constraints. Limited adaptability to specific creative intentions. Not the funky slap bass originally envisioned - had to compromise.",
+          "supports_score": "Negative - forces practitioner to adapt intent"
+        },
+        {
+          "session": "SESSION_MG_005",
+          "context": "Harmonic limitation",
+          "excerpt": "Wanted Aeolian mode progression (specific modal color). MusicGen produced generic minor progression. Had to simplify creative goal to 'dark minor pad' to get usable output. System dictates harmonic palette, not practitioner.",
+          "supports_score": "Negative - limited harmonic adaptability"
+        },
+        {
+          "session": "SESSION_MG_006",
+          "context": "Acoustic instrument limitation",
+          "excerpt": "Funk guitar rhythm had smeared attacks, metallic overtones. Unusable for acoustic funk vision. Realized MusicGen is better suited for electronic funk (where artifacts blend into aesthetic). Genre adaptability constrained.",
+          "supports_score": "Negative - strong timbral biases limit genre flexibility"
+        },
+        {
+          "session": "SESSION_MG_004",
+          "context": "Rhythmic strength - adaptive success",
+          "excerpt": "'Funk drum groove, syncopated backbeat' produced immediately usable pattern on first attempt. For rhythmic/percussive tasks, MusicGen adapts well to creative intent. Strength domain identified.",
+          "supports_score": "Positive - adaptable for rhythm-centric tasks"
+        },
+        {
+          "session": "SESSION_MG_002",
+          "context": "Electronic texture strength",
+          "excerpt": "Synth lead generation worked smoothly - bright, filter-swept lead on 2nd attempt. MusicGen is highly adaptable for electronic music production. Within this domain, it's genuinely flexible.",
+          "supports_score": "Positive - adaptable within electronic music domain"
+        },
+        {
+          "session": "SESSION_MG_007",
+          "context": "Iterative limitation - no refinement mode",
+          "excerpt": "Got a good percussion fill but wanted snare hit moved 1/8th note earlier. Cannot ask MusicGen to 'adjust this output'. Must generate entirely new variant and hope. No iterative refinement capability.",
+          "supports_score": "Negative - cannot incrementally adapt outputs"
+        },
+        {
+          "session": "SESSION_MG_003",
+          "context": "Melody conditioning - partial iterative capability",
+          "excerpt": "Melody conditioning (audio-to-audio continuation) enables some iterative work - feed existing idea, get continuation. But continuation quality is unpredictable - sometimes coherent, sometimes diverges completely.",
+          "supports_score": "Mixed - melody conditioning enables iteration but unreliably"
+        },
+        {
+          "session": "SESSION_MG_001",
+          "context": "Learning curve for effective use",
+          "excerpt": "After 6 sessions, I've learned to work WITH MusicGen's biases (electronic, rhythmic) rather than against them (acoustic, harmonic). But this required ~8 hours of trial-and-error. Steep learning curve to understand system's creative 'personality'.",
+          "supports_score": "Negative - adaptability requires extensive learning"
+        }
+      ],
+      
+      "rubric_mapping": "Score 2 ('Low Adaptability - Requires Significant Compromise') aligns with: 'System has strong biases or limitations. Practitioners must adjust creative goals to fit system capabilities. Useful only within narrow domain.' MusicGen is useful for electronic, rhythm-focused funk production but struggles with acoustic and harmonically complex creative goals. Adaptability is 'low' because the system does not flexibly accommodate diverse creative directions - practitioners must adapt to IT."
+    }
+  },
+  
+  "qualitative_patterns": [
+    {
+      "pattern_id": "PATTERN_MG_001",
+      "theme": "Prompt Engineering as Bottleneck",
+      "description": "Effective MusicGen use requires learning opaque prompt engineering heuristics through trial-and-error. Timbral descriptors ('synth bass', 'bright lead') outperform functional descriptors ('bassline', 'melody'). Simplified language ('dark minor') more reliable than music theory terminology ('Aeolian mode'). Negative constraints ('no drums') fail consistently. This creates a steep learning curve and makes outcomes unpredictable for new users.",
+      "sessions_observed": ["SESSION_MG_001", "SESSION_MG_002", "SESSION_MG_003", "SESSION_MG_005", "SESSION_MG_006"],
+      "severity": "High",
+      "impact_on_workflow": "Sessions 01-03 required 15-20 minutes of prompt iteration per desired output. By Session 06-07, prompt templates reduced iteration time to 5-10 minutes, but the initial learning cost was substantial."
+    },
+    {
+      "pattern_id": "PATTERN_MG_002",
+      "theme": "Full-Arrangement Bias Creates Workflow Friction",
+      "description": "MusicGen consistently generates full musical arrangements (bass + drums + harmony) when prompted for individual instruments. This reflects training data bias toward complete mixes. For DAW-based workflows requiring clean stems, this forces use of Demucs source separation or regeneration with simplified prompts (e.g., 'bass synth' instead of 'funky bassline'), adding 10-30 minutes per output.",
+      "sessions_observed": ["SESSION_MG_003", "SESSION_MG_006"],
+      "severity": "High",
+      "impact_on_workflow": "20-40% of session time spent resolving layering issues via Demucs or prompt rephrasing. Positions MusicGen as 'sample generator' requiring curation rather than 'stem producer' ready for DAW integration."
+    },
+    {
+      "pattern_id": "PATTERN_MG_003",
+      "theme": "Electronic vs. Acoustic Quality Divide",
+      "description": "MusicGen produces higher-quality outputs for electronic timbres (synth bass, pads, electronic drums) than acoustic instruments (bass guitar, acoustic drums, strings). EnCodec artifacts (metallic overtones, quantization noise) are less perceptually salient in synthetic sounds. This creates a timbral constraint on creative adaptability.",
+      "sessions_observed": ["SESSION_MG_001", "SESSION_MG_002", "SESSION_MG_003", "SESSION_MG_005", "SESSION_MG_006"],
+      "severity": "Moderate",
+      "impact_on_workflow": "Practitioners working in electronic genres experience higher usability; acoustic-focused practitioners face quality limitations requiring extensive post-processing."
+    },
+    {
+      "pattern_id": "PATTERN_MG_004",
+      "theme": "Parameter Ineffectiveness for Creative Steering",
+      "description": "MusicGen's numerical parameters (temperature, top-k, cfg_coef) have subtle and unpredictable impacts on musical outcomes. Parameter grid searches (81+ combinations in Sessions 02/05) showed that parameters control randomness/diversity more than creative direction. Prompt text remains the primary steering mechanism, but prompt-to-output mapping is non-deterministic.",
+      "sessions_observed": ["SESSION_MG_002", "SESSION_MG_003", "SESSION_MG_005"],
+      "severity": "Moderate",
+      "impact_on_workflow": "Time invested in parameter tuning (10-15 minutes per session) yielded minimal creative benefit. More effective to generate multiple prompt variants than multiple parameter variants."
+    }
+  ],
+  
+  "final_assessment": {
+    "overall_impression": "MusicGen is a technically sophisticated text-to-audio system that excels at electronic texture generation and rhythmic pattern creation but struggles with semantic alignment, workflow integration, and creative adaptability for production use. It functions best as a 'sample generator' for electronic music ideation rather than a 'composition assistant' for diverse creative workflows. The system's value is domain-constrained: practitioners working in electronic genres with tolerance for prompt engineering and post-processing will find it useful; those expecting seamless DAW integration, acoustic instrument quality, or precise harmonic control will be frustrated.",
+    
+    "strengths_summary": [
+      "Strong rhythmic generation (drums, percussion) with immediate usability",
+      "High-quality electronic texture synthesis (synth bass, pads, leads) with minimal artifacts",
+      "Open-source architecture enabling research and modification",
+      "Batch processing supports overnight multi-variant generation",
+      "Melody conditioning enables audio-to-audio continuation (iterative composition)"
+    ],
+    
+    "limitations_summary": [
+      "Poor semantic alignment for acoustic instruments and harmonic specificity",
+      "Slow generation speed (2-3 minutes per 30s) disrupts creative flow",
+      "Full-arrangement bias creates workflow friction for stem-based production",
+      "Minimal DAW integration (no tempo/key metadata, no plugin format, manual import)",
+      "Limited creative adaptability outside electronic/rhythmic domain",
+      "Steep prompt engineering learning curve (8+ hours to develop effective strategies)"
+    ],
+    
+    "recommended_use_cases": [
+      "Electronic music ideation (synth textures, electronic drum patterns)",
+      "Rhythmic pattern generation for funk, hip-hop, electronic genres",
+      "Sample library augmentation (generating raw material for curation)",
+      "Research into text-to-audio generation (open-source access)",
+      "Overnight batch generation of multiple variants for later selection"
+    ],
+    
+    "not_recommended_for": [
+      "Real-time live performance (batch processing, hardware requirements)",
+      "Acoustic instrument generation (quality limitations, EnCodec artifacts)",
+      "Precise harmonic composition (limited music theory interpretation)",
+      "Rapid iterative composition (slow generation, no refinement mode)",
+      "Non-technical users (CLI interface, Python environment required)"
+    ],
+    
+    "comparison_to_other_systems_preview": "Compared to Riffusion (faster generation, similar quality for electronic textures), Magenta Studio (MIDI-based, better DAW integration but weaker quality), and DDSP-VST (real-time, higher scores across all criteria), MusicGen occupies a middle tier - more capable than Magenta but less workflow-compatible than DDSP. Full comparative analysis in Phase 3."
+  },
+  
+  "phase_3_preparation": {
+    "confidence_in_scores": "High confidence (4-5/5) for: Generation Speed, DAW Integration (objective measurements). Moderate confidence (3/5) for: Semantic Alignment, Steerability, Creative Adaptability (subjective, context-dependent).",
+    "questions_for_comparative_analysis": [
+      "How does MusicGen's 2-3 minute generation compare to Riffusion's ~35 seconds and DDSP-VST's real-time processing?",
+      "Are MusicGen's DAW integration failures (Score 1) universal across text-to-audio systems or system-specific?",
+      "Does MusicGen's electronic-vs-acoustic quality divide appear in other systems?",
+      "How does the prompt engineering bottleneck compare to other text-based systems (Riffusion)?"
+    ],
+    "reflexive_synthesis": "Evaluating MusicGen across 7 sessions and 10.5 hours revealed that my initial Phase 0 assessments were optimistic - I underestimated the workflow friction imposed by slow generation and poor DAW integration. The critical incident in Session 03 (categorical error: bass → drums) fundamentally shifted my understanding of the system from 'unreliable but useful' to 'requires defensive prompt engineering strategies'. By Session 06-07, I had adapted to MusicGen's biases (electronic timbres, rhythmic tasks) and developed effective prompt templates, improving usability. This learning trajectory raises methodological questions: should scores reflect initial user experience (frustrating, low scores) or experienced user proficiency (workable, moderate scores)? I chose to balance both perspectives - scores reflect system capabilities for moderately experienced users who have invested the learning time."
+  }
+}

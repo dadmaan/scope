@@ -1,0 +1,727 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "The Synthesis Journal Schema",
+  "description": "Unified schema for post-hoc sense-making, merging quantitative assessment and reflective journaling for AI music generation system evaluation",
+  "type": "object",
+  "version": "1.0.0",
+  "required": ["template_version", "template_type", "system_metadata", "quantitative_assessment", "reflective_journal"],
+
+  "properties": {
+    "template_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version for compatibility tracking"
+    },
+
+    "template_type": {
+      "type": "string",
+      "const": "synthesis_journal",
+      "description": "Template identifier"
+    },
+
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of creation"
+    },
+
+    "modified_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last modification"
+    },
+
+    "system_metadata": {
+      "type": "object",
+      "required": ["system_name", "evaluator"],
+      "properties": {
+        "system_name": {
+          "type": "string",
+          "description": "Name of the AI music generation system being evaluated"
+        },
+        "system_version": {
+          "type": "string",
+          "description": "Version or variant of the system (e.g., 'v1.2.0', 'Large model')"
+        },
+        "evaluation_period": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date",
+              "description": "Start date of evaluation period"
+            },
+            "end": {
+              "type": "string",
+              "format": "date",
+              "description": "End date of evaluation period"
+            }
+          }
+        },
+        "evaluator": {
+          "type": "string",
+          "description": "Name or ID of the evaluator/researcher"
+        },
+        "assessment_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when quantitative assessment was completed"
+        },
+        "confidence_level": {
+          "type": "string",
+          "enum": [
+            "Very confident (10+ sessions, extensive testing)",
+            "Confident (5-9 sessions, good coverage)",
+            "Moderate confidence (3-4 sessions, basic coverage)",
+            "Low confidence (<3 sessions, limited testing)"
+          ],
+          "description": "Overall confidence in assessment validity"
+        },
+        "session_summary": {
+          "type": "object",
+          "properties": {
+            "total_sessions": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total number of evaluation sessions conducted"
+            },
+            "total_attempts": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total generation attempts across all sessions"
+            },
+            "total_outputs": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Total outputs generated"
+            },
+            "usable_outputs": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of outputs deemed usable for production"
+            },
+            "success_rate": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Percentage of usable outputs (computed)"
+            }
+          }
+        }
+      }
+    },
+
+    "imported_sessions": {
+      "type": "array",
+      "description": "References to Phase 1 session log files imported for evidence",
+      "items": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "description": "Unique session identifier (e.g., 'session_musicgen_20251020_143022')"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of the session"
+          },
+          "file_path": {
+            "type": "string",
+            "description": "Path to the session JSON file"
+          },
+          "system_name": {
+            "type": "string",
+            "description": "System name from session (for validation)"
+          }
+        }
+      }
+    },
+
+    "quantitative_assessment": {
+      "type": "object",
+      "required": ["criteria", "average_score"],
+      "properties": {
+        "criteria": {
+          "type": "object",
+          "required": ["1_usability", "2_generation_speed", "3_audio_quality", "4_stylistic_accuracy", "5_parameter_control", "6_content_control", "7_daw_integration", "8_creative_workflow"],
+          "properties": {
+            "1_usability": {
+              "$ref": "#/definitions/criterion_usability"
+            },
+            "2_generation_speed": {
+              "$ref": "#/definitions/criterion_generation_speed"
+            },
+            "3_audio_quality": {
+              "$ref": "#/definitions/criterion_audio_quality"
+            },
+            "4_stylistic_accuracy": {
+              "$ref": "#/definitions/criterion_stylistic_accuracy"
+            },
+            "5_parameter_control": {
+              "$ref": "#/definitions/criterion_parameter_control"
+            },
+            "6_content_control": {
+              "$ref": "#/definitions/criterion_content_control"
+            },
+            "7_daw_integration": {
+              "$ref": "#/definitions/criterion_daw_integration"
+            },
+            "8_creative_workflow": {
+              "$ref": "#/definitions/criterion_creative_workflow"
+            }
+          }
+        },
+        "average_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Mean score across all 8 criteria"
+        },
+        "synthesis": {
+          "type": "object",
+          "properties": {
+            "strengths": {
+              "type": "string",
+              "description": "Top 3 strengths with specific examples"
+            },
+            "weaknesses": {
+              "type": "string",
+              "description": "Top 3 weaknesses with specific examples"
+            },
+            "standout": {
+              "type": "string",
+              "description": "Single most defining feature or characteristic"
+            },
+            "best_for": {
+              "type": "string",
+              "description": "2-3 use cases where system excels"
+            },
+            "not_recommended": {
+              "type": "string",
+              "description": "2-3 use cases where system is unsuitable"
+            },
+            "ideal_user": {
+              "type": "string",
+              "description": "Profile of user who would benefit most"
+            }
+          }
+        }
+      }
+    },
+
+    "reflective_journal": {
+      "type": "object",
+      "required": ["entries"],
+      "properties": {
+        "entry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of journal entries (computed)"
+        },
+        "date_range": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "type": "string",
+              "format": "date",
+              "description": "Date of first journal entry"
+            },
+            "last": {
+              "type": "string",
+              "format": "date",
+              "description": "Date of most recent entry"
+            }
+          }
+        },
+        "entries": {
+          "type": "array",
+          "description": "Array of daily journal entries in chronological order",
+          "items": {
+            "$ref": "#/definitions/journal_entry"
+          }
+        },
+        "longitudinal_analysis": {
+          "type": "object",
+          "description": "Generated when ≥5 entries exist",
+          "properties": {
+            "trends": {
+              "type": "object",
+              "description": "Direction of change for each day rating dimension",
+              "properties": {
+                "productivity": {
+                  "type": "string",
+                  "enum": ["↗ improving", "→ stable", "↘ declining", "~ fluctuating"]
+                },
+                "learning": {
+                  "type": "string",
+                  "enum": ["↗ improving", "→ stable", "↘ declining", "~ fluctuating"]
+                },
+                "creativity": {
+                  "type": "string",
+                  "enum": ["↗ improving", "→ stable", "↘ declining", "~ fluctuating"]
+                },
+                "frustration": {
+                  "type": "string",
+                  "enum": ["↗ increasing", "→ stable", "↘ decreasing", "~ fluctuating"]
+                },
+                "satisfaction": {
+                  "type": "string",
+                  "enum": ["↗ improving", "→ stable", "↘ declining", "~ fluctuating"]
+                }
+              }
+            },
+            "most_productive_phase": {
+              "type": "string",
+              "description": "Date range or day numbers of highest productivity"
+            },
+            "most_challenging_phase": {
+              "type": "string",
+              "description": "Date range or day numbers of highest frustration"
+            },
+            "recurring_themes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Common observations or challenges appearing across entries"
+            },
+            "perspective_evolution": {
+              "type": "string",
+              "description": "Summary of how understanding evolved over time"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "criterion_base": {
+      "type": "object",
+      "required": ["score"],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Rubric-grounded score (0=N/A, 1-5=performance level)"
+        },
+        "confidence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Evaluator confidence in score (1=low, 5=high)"
+        },
+        "evidence": {
+          "type": "string",
+          "description": "Specific examples from evaluation sessions"
+        },
+        "session_references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "IDs of sessions providing key evidence"
+        },
+        "journal_references": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "date"
+          },
+          "description": "Dates of journal entries informing this criterion"
+        }
+      }
+    },
+
+    "criterion_usability": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "indicators": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Interface clarity and intuitiveness",
+                  "Feature discoverability",
+                  "Documentation quality",
+                  "Helpful error messages",
+                  "Accessibility features",
+                  "Short learning curve"
+                ]
+              },
+              "description": "Specific strengths observed"
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_generation_speed": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "measurements": {
+              "type": "string",
+              "description": "Timing data (e.g., '45s for 30s output')"
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_audio_quality": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "artifacts": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Compression artifacts",
+                  "Frequency issues (muddy/harsh)",
+                  "Noise/hiss present",
+                  "Glitches or clicks",
+                  "None observed"
+                ]
+              },
+              "description": "Audio quality issues detected"
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_stylistic_accuracy": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "genres_tested": {
+              "type": "string",
+              "description": "List of genres/styles tested with results"
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_parameter_control": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "parameters": {
+              "type": "string",
+              "description": "Available parameters with ranges and granularity"
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_content_control": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "stem_separation": {
+              "type": "string",
+              "description": "Stem separation capability and quality"
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_daw_integration": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "integration_type": {
+              "type": "string",
+              "description": "Type and extent of DAW integration"
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_creative_workflow": {
+      "allOf": [
+        { "$ref": "#/definitions/criterion_base" },
+        {
+          "properties": {
+            "interruptions": {
+              "type": "string",
+              "description": "Frequency and nature of workflow interruptions"
+            }
+          }
+        }
+      ]
+    },
+
+    "journal_entry": {
+      "type": "object",
+      "required": ["entry_date", "day_number"],
+      "properties": {
+        "entry_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of journal entry"
+        },
+        "day_number": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Sequential day number of evaluation"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "productivity": {
+              "type": "string",
+              "enum": ["High", "Medium", "Low"]
+            },
+            "mood": {
+              "type": "string",
+              "enum": ["Energized", "Focused", "Neutral", "Tired", "Frustrated"]
+            }
+          }
+        },
+        "activities": {
+          "type": "object",
+          "properties": {
+            "systems_worked": {
+              "type": "string",
+              "description": "Systems worked with today (one per line with time)"
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Content generation sessions",
+                  "Post-processing work",
+                  "DAW integration testing",
+                  "Documentation/logging",
+                  "Technical troubleshooting",
+                  "Comparative analysis",
+                  "Reading/research",
+                  "Other"
+                ]
+              }
+            },
+            "time_investment": {
+              "type": "object",
+              "properties": {
+                "hands_on": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Hours spent hands-on with systems"
+                },
+                "processing": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Hours spent on post-processing"
+                },
+                "documentation": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Hours spent documenting"
+                },
+                "total": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Total hours (computed)"
+                }
+              }
+            }
+          }
+        },
+        "observations": {
+          "type": "object",
+          "properties": {
+            "technical": {
+              "type": "string",
+              "description": "Technical discoveries about system capabilities"
+            },
+            "creative": {
+              "type": "string",
+              "description": "Creative insights or breakthroughs"
+            },
+            "workflow": {
+              "type": "string",
+              "description": "Workflow learnings"
+            },
+            "comparative": {
+              "type": "string",
+              "description": "Insights about system comparisons"
+            }
+          }
+        },
+        "challenges_successes": {
+          "type": "object",
+          "properties": {
+            "challenges": {
+              "type": "string",
+              "description": "Technical issues, difficulties, frustrations"
+            },
+            "what_worked": {
+              "type": "string",
+              "description": "3-5 things that went well"
+            },
+            "outputs_created": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of usable outputs created today"
+            },
+            "output_quality": {
+              "type": "string",
+              "enum": ["Excellent", "Good", "Acceptable", "Poor"]
+            },
+            "satisfaction": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10,
+              "description": "Overall satisfaction level (1-10)"
+            },
+            "wins": {
+              "type": "string",
+              "description": "Small victories to celebrate"
+            }
+          }
+        },
+        "evolution": {
+          "type": "object",
+          "properties": {
+            "changed_perspectives": {
+              "type": "string",
+              "description": "How perspectives shifted from start to end of day"
+            },
+            "evolving_rankings": {
+              "type": "string",
+              "description": "Changes in system opinions/rankings"
+            }
+          }
+        },
+        "autoethnographic": {
+          "type": "object",
+          "properties": {
+            "emotional_journey": {
+              "type": "string",
+              "description": "Emotional arc throughout the day"
+            },
+            "relationship_with_tech": {
+              "type": "string",
+              "description": "Feelings about AI systems (trust, frustration, partnership)"
+            },
+            "creative_identity": {
+              "type": "string",
+              "description": "Impact on self-perception as creator"
+            },
+            "flow_state": {
+              "type": "string",
+              "enum": ["Yes, sustained", "Yes, briefly", "No"]
+            },
+            "flow_notes": {
+              "type": "string",
+              "description": "Details about flow state achievement"
+            }
+          }
+        },
+        "planning": {
+          "type": "object",
+          "properties": {
+            "tomorrow_priorities": {
+              "type": "string",
+              "description": "3-5 priorities for tomorrow"
+            },
+            "systems_to_focus": {
+              "type": "string",
+              "description": "Which systems to work with and goals"
+            },
+            "questions": {
+              "type": "string",
+              "description": "Questions or issues to investigate"
+            }
+          }
+        },
+        "meta_learning": {
+          "type": "object",
+          "properties": {
+            "insights": {
+              "type": "string",
+              "description": "Bigger picture learnings about AI music, methodology, etc."
+            },
+            "random_notes": {
+              "type": "string",
+              "description": "Miscellaneous thoughts and observations"
+            }
+          }
+        },
+        "day_rating": {
+          "type": "object",
+          "description": "5-dimensional day assessment (1=low, 10=high)",
+          "properties": {
+            "productivity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "learning": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "creativity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "frustration": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "satisfaction": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            }
+          }
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "one_sentence": {
+              "type": "string",
+              "description": "Essence of the day in one sentence"
+            },
+            "key_takeaway": {
+              "type": "string",
+              "description": "Single most important learning"
+            },
+            "gratitude": {
+              "type": "string",
+              "description": "What went better than expected"
+            }
+          }
+        },
+        "criterion_insights": {
+          "type": "object",
+          "description": "Optional linkage to assessment criteria informed by today's work",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

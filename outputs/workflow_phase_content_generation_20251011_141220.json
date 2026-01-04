@@ -1,0 +1,47 @@
+{
+  "export_date": "2025-10-11T14:12:20.606069",
+  "framework_version": "0.1.0",
+  "data": {
+    "phase_overview": {
+      "phase_name": "Content Generation",
+      "date": "2025-10-11",
+      "duration": "",
+      "systems": "",
+      "evaluator": "",
+      "project_context": ""
+    },
+    "pre_phase_state": {
+      "goals": "",
+      "resources": "",
+      "vision": "",
+      "expected_challenges": "",
+      "time_estimate": 1.0
+    },
+    "execution_log": [],
+    "workflow_details": {
+      "systems_used": "",
+      "system_performance": "",
+      "time_breakdown": "",
+      "bottlenecks": ""
+    },
+    "outcome_assessment": {
+      "achievement": "Completely",
+      "quality": "Excellent",
+      "usable_outputs": "",
+      "surprises": "",
+      "next_phase_impact": ""
+    },
+    "learnings": {
+      "key_learnings": "",
+      "criterion_connections": "",
+      "evidence": "",
+      "creative_experience": ""
+    },
+    "generation_details": {
+      "approach": "Prompt-based",
+      "prompts": "",
+      "iterations": 1,
+      "output": ""
+    }
+  }
+}

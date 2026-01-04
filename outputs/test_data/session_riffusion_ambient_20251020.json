@@ -1,0 +1,228 @@
+{
+  "template_metadata": {
+    "template_type": "session_notebook",
+    "template_version": "1.0.0",
+    "created_at": "2025-10-20T08:00:00Z",
+    "modified_at": "2025-10-19T11:45:00Z",
+    "exported_at": "2025-10-20T09:30:00Z"
+  },
+  "core_session": {
+    "metadata": {
+      "session_id": "session_riffusion_20251020_080000",
+      "date": "2025-10-20",
+      "start_time": "08:00",
+      "end_time": "09:30",
+      "system_name": "Riffusion",
+      "system_version": "v1.2",
+      "interface_type": "Web Interface",
+      "hardware": "NVIDIA RTX 4090, 64GB RAM, Intel i9-13900K",
+      "evaluator": "Evaluator_Alpha",
+      "session_number": 3,
+      "session_type": "Standard Session"
+    },
+    "creative_context": {
+      "musical_element": "Texture",
+      "genre": "Ambient",
+      "tempo": "60 BPM",
+      "key": "C major",
+      "intended_use": "Background",
+      "references": "Brian Eno, ambient soundscapes"
+    },
+    "generation_attempts": [
+      {
+        "attempt_number": 1,
+        "time": "08:15",
+        "input_type": "Text prompt",
+        "input_content": "Ambient pad, ethereal atmosphere, slow evolving texture, warm synthesizer",
+        "parameters": "Duration: 10s, Denoising: 0.8",
+        "generation_time": "12 seconds for 10s output",
+        "output_description": "Surprisingly good! Riffusion handles ambient textures much better than rhythmic content. Warm, evolving pad. Artifacts less noticeable in dense ambient mix.",
+        "match_to_intent": "Perfect",
+        "quality_rating": 5,
+        "usability": "Usable as-is",
+        "issues": [
+          "None"
+        ],
+        "artifacts": [
+          "Compression artifacts"
+        ],
+        "notable_observations": "Riffusion excels at ambient/textural content - artifacts blend into the aesthetic. Much better than yesterday's rock riff session."
+      },
+      {
+        "attempt_number": 2,
+        "time": "08:35",
+        "input_type": "Text prompt",
+        "input_content": "Sparse piano notes, reverb, contemplative ambient music, distant and dreamy",
+        "parameters": "Duration: 12s, Denoising: 0.75",
+        "generation_time": "13 seconds for 12s output",
+        "output_description": "Beautiful sparse piano with natural reverb decay. Pitch is slightly unstable on long notes but adds to dreamy quality. Perfect for background.",
+        "match_to_intent": "Perfect",
+        "quality_rating": 5,
+        "usability": "Usable as-is",
+        "issues": [
+          "None"
+        ],
+        "artifacts": [
+          "Pitch/tuning problems"
+        ],
+        "notable_observations": "Pitch instability is actually a feature for ambient/dreamy aesthetic. What was a bug yesterday is a benefit today."
+      },
+      {
+        "attempt_number": 3,
+        "time": "09:00",
+        "input_type": "Text prompt",
+        "input_content": "Gentle string swells, cinematic ambient, emotional atmosphere, slow crescendo",
+        "parameters": "Duration: 15s, Denoising: 0.7",
+        "generation_time": "16 seconds for 15s output",
+        "output_description": "Emotive string swells with natural crescendo. Some frequency artifacts in the high strings but blends into the ambient texture. Very usable.",
+        "match_to_intent": "Perfect",
+        "quality_rating": 5,
+        "usability": "Usable as-is",
+        "issues": [
+          "None"
+        ],
+        "artifacts": [
+          "Frequency issues"
+        ],
+        "notable_observations": "Riffusion's 'flaws' become strengths in ambient context - artifacts add texture and character."
+      }
+    ],
+    "prompt_refinement": {
+      "initial": "Ambient pad, ethereal atmosphere, slow evolving texture, warm synthesizer",
+      "final": "All three attempts were immediately successful",
+      "iterations": "Three successful attempts for different ambient layers: pad, piano, strings",
+      "responds_well": "Ambient descriptors: ethereal, dreamy, distant, gentle, slow, evolving, emotional, cinematic",
+      "struggles_with": "Nothing apparent in ambient context - artifacts blend naturally",
+      "unexpected": "Riffusion EXCELS at ambient textures. Yesterday's rock session was frustrating; today is effortless. Same system, different content = opposite experience.",
+      "effective_keywords": "ambient, ethereal, dreamy, distant, sparse, gentle, slow, evolving, emotional, cinematic, warm",
+      "ineffective_keywords": "BPM/key still approximate but less critical for ambient music"
+    },
+    "post_processing": {
+      "separation": {
+        "needed": "No",
+        "tool": "",
+        "quality": "Tried but guitar already isolated enough"
+      },
+      "eq": {
+        "applied": true,
+        "details": "Aggressive high-shelf cut above 8kHz to remove spectral artifacts. Boost at 1.5-2kHz for presence."
+      },
+      "compression": {
+        "applied": true,
+        "details": "Heavy compression to even out dynamics and add sustain"
+      },
+      "reverb": {
+        "applied": true,
+        "details": "Short room reverb to add space and mask some artifacts"
+      },
+      "trimming": {
+        "applied": true,
+        "details": "Trimmed to clean loop point"
+      },
+      "other": "Added subtle saturation to enhance grit and mask digital artifacts",
+      "total_time": "20 minutes"
+    },
+    "daw_integration": {
+      "daw": "Ableton Live",
+      "format": "WAV",
+      "sample_rate": "44.1kHz, 16-bit",
+      "context": "Used as main guitar riff for rock track, layered with live bass and drums",
+      "issues": [
+        "Tempo sync problems"
+      ],
+      "workarounds": "Manual tempo warping needed - Riffusion doesn't respect BPM spec. Set warp markers at downbeats.",
+      "ease": "Minor adjustments",
+      "time": "15 minutes",
+      "result": "Fully integrated"
+    },
+    "reflections": {
+      "what_worked": "EVERYTHING! Riffusion is perfect for ambient textures. Fast generation, atmospheric results, artifacts enhance rather than detract. All 3 attempts immediately usable.",
+      "frustrations": "None this session.",
+      "discoveries": "MAJOR DISCOVERY: Riffusion's audio quality 'flaws' become strengths for ambient music. Spectrogram artifacts add texture and dreaminess. System is highly content-dependent - terrible for clean/rhythmic, excellent for ambient/textural.",
+      "comparisons": "For ambient textures, Riffusion > MusicGen (faster, more character). For rhythmic/clean content, MusicGen/DDSP > Riffusion. System suitability is content-dependent.",
+      "emotional_state": "Frustrated by quality limitations but appreciated the speed for rapid iteration. Acceptable for sketching but wouldn't use for foreground elements."
+    },
+    "session_stats": {
+      "total_attempts": 3,
+      "usable_outputs": 3,
+      "generation_time": "41 seconds",
+      "processing_time": "20 minutes",
+      "integration_time": "15 minutes",
+      "productivity": "High",
+      "efficiency": "Faster than traditional"
+    }
+  },
+  "optional_incident": {
+    "logged": true,
+    "metadata": {
+      "date": "2025-10-20",
+      "time": "09:20"
+    },
+    "classification": {
+      "type": "Breakthrough/Success",
+      "severity": "Major"
+    },
+    "description": {
+      "what_happened": "Discovered Riffusion excels at ambient textures - artifacts that harm rhythmic content enhance ambient aesthetics",
+      "goal": "Generate ambient background textures after yesterday's frustrating rock riff session",
+      "expected": "Similar quality issues as yesterday (artifacts, muddiness)",
+      "actual": "Perfect results - artifacts ADD to dreamy/ethereal quality. All 3 attempts immediately usable.",
+      "why_notable": "Reveals system specialization: Riffusion's 'weaknesses' are strengths for specific content. Changes evaluation approach."
+    },
+    "context": {
+      "prior_actions": "Yesterday's rock riff session had poor audio quality requiring heavy processing",
+      "system_state": "Same Riffusion v1.2, similar prompting approach, different content type"
+    },
+    "autoethnography": {
+      "time_of_day": "Morning (6am-12pm)",
+      "fatigue_level": "Fresh/Alert",
+      "emotional_state": "Excited",
+      "external_pressures": "None"
+    },
+    "analysis": {
+      "significance": "System effectiveness is HIGHLY content-dependent. 'Flaws' in one context = 'features' in another.",
+      "affected_criteria": [
+        "3. Audio Quality",
+        "4. Stylistic Accuracy",
+        "8. Creative Workflow Fit"
+      ],
+      "theoretical_insights": "Evaluation must consider content-fit. No 'universally good/bad' systems - only appropriate/inappropriate applications.",
+      "workflow_impact": "Use Riffusion specifically for ambient/textural content where artifacts enhance aesthetic. Avoid for clean/rhythmic needs."
+    },
+    "root_cause": {
+      "probable_causes": [
+        "Model limitation",
+        "Training data bias"
+      ],
+      "evidence": "Spectrogram-based approach inherently lossy. Works against clean fidelity but favors atmospheric textures.",
+      "alternatives": "This is architectural, not a bug. System design optimizes for speed/creativity over fidelity."
+    },
+    "learnings": {
+      "system": "Riffusion specializes in ambient/textural generation. Artifacts are feature, not bug, in this context.",
+      "evaluation": "Must evaluate systems within their optimal use cases. Content-fit matters more than absolute quality metrics.",
+      "practice": "Don't dismiss systems after one poor experience - explore different content types to find sweet spots.",
+      "approach_changes": "Will create content-type suitability matrix for each system",
+      "recommendations": "Riffusion marketing should emphasize ambient/texture specialization, de-emphasize precision/fidelity use cases"
+    },
+    "reproducibility": {
+      "level": "Consistently reproducible",
+      "steps": "Use Riffusion for ambient/pad/texture prompts with denoising 0.7-0.8",
+      "conditions": "Consistent across pad, piano, strings - likely applies to all ambient instruments",
+      "attempts": 3,
+      "success_rate": "3/3 (100%)"
+    },
+    "documentation": {
+      "evidence_types": [
+        "Audio recordings",
+        "Generated output files"
+      ],
+      "location": "~/evaluation/riffusion_session_20251020/",
+      "related": "Contrasts with rock riff session (20251019). Links to Criteria 3, 4, 8.",
+      "follow_up": "Test other atmospheric genres (soundscapes, drones, field recordings)"
+    }
+  },
+  "optional_workflow_phase": {
+    "enabled": false
+  },
+  "custom_fields": {}
+}
